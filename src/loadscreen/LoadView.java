@@ -71,11 +71,11 @@ public class LoadView extends View<Pane>
         loadWindow.close();
     }
 
-    public void setImage(Image image)
+    public void setImage(ImagePattern image)
     {
         if (image != null)
         {
-            loadImage.setFill(new ImagePattern(image, 0, 0, 1, 1, true));
+            loadImage.setFill(image);
         }
     }
 

@@ -2,9 +2,11 @@ package menues.main;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import mvp.View;
 
@@ -45,5 +47,24 @@ public class MainMenuView extends View<VBox>
         /// Testen
         optionsContainer.getChildren().add(new Button("TestOption"));
         optionsContainer.getChildren().add(new Button("TestOption2"));
+    }
+
+    /**
+     * Position im Array - Erscheinen im Menü
+     * <ul>
+     * <li>0 - Oberste Zeile "Header Bild"
+     * <li>1 - links von der Optionen Wahl
+     * <li>2 - rechts von der OPtionen Wahl
+     * <li>3 - hinter den Optionen
+     * <li>4 - am unteren rand "Footer"
+     * <ul>
+     * 
+     * @param images
+     *            Liste an Images die zum Menü gehören
+     */
+    public void setImageSet(ImagePattern... images)
+    {
+        if (images == null || images.length < 5)
+            leftImage.setFill(images[1]);
     }
 }
