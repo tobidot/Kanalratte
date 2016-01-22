@@ -3,14 +3,15 @@ package loadscreen;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import model.Model;
+import mvp.MainPresenter;
 import mvp.Presenter;
 
 public class LoadingScreenPresenter extends Presenter<LoadView>
 {
 
-    public LoadingScreenPresenter(Model model)
+    public LoadingScreenPresenter(MainPresenter mainP, Model model)
     {
-        super(model, new LoadView());
+        super(mainP, model, new LoadView());
 
         Image image = new Image(model.getResourcePath("TEST"));
         view.setImage(new ImagePattern(image, 0, 0, 1, 1, true));

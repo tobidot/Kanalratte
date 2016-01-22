@@ -30,7 +30,7 @@ public class Starter extends Application
         Model model = new Model();
         MainPresenter presenter = new MainPresenter(model, stage);
 
-        presenter.addPresenter(new MainMenuPresenter(model), "main menü");
+        presenter.addPresenter(new MainMenuPresenter(presenter, model), "main menü");
 
         Pane root = presenter.getView().getUI();
         Scene scene = new Scene(root);

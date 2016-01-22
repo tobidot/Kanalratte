@@ -9,10 +9,13 @@ public abstract class Presenter<T extends View>
 
     protected T view;
 
-    public Presenter(Model model, T view)
+    protected MainPresenter mainPresenter;
+
+    public Presenter(MainPresenter mainPresenter, Model model, T view)
     {
         this.model = model;
         this.view = view;
+        this.mainPresenter = mainPresenter;
     }
 
     public abstract void show();

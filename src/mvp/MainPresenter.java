@@ -19,7 +19,7 @@ public class MainPresenter extends Presenter<MainView>
 
     public MainPresenter(Model model, Stage stage)
     {
-        super(model, new MainView());
+        super(null, model, new MainView());
         childPresenter = new HashMap<String, Presenter>();
         currentPresenter = null;
         primaryStage = stage;
@@ -45,7 +45,7 @@ public class MainPresenter extends Presenter<MainView>
 
     public void startLoading()
     {
-        LoadingScreenPresenter loadP = new LoadingScreenPresenter(model);
+        LoadingScreenPresenter loadP = new LoadingScreenPresenter(this, model);
         long started = System.nanoTime();
         final long waittime = 1000000000l;
         loadP.show();

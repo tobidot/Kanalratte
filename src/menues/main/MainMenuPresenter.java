@@ -2,14 +2,15 @@ package menues.main;
 
 import javafx.scene.paint.ImagePattern;
 import model.Model;
+import mvp.MainPresenter;
 import mvp.Presenter;
 
 public class MainMenuPresenter extends Presenter<MainMenuView>
 {
 
-    public MainMenuPresenter(Model model)
+    public MainMenuPresenter(MainPresenter mainP, Model model)
     {
-        super(model, new MainMenuView());
+        super(mainP, model, new MainMenuView());
         ImagePattern[] menue = new ImagePattern[5];
         menue[0] = null;
         menue[1] = new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true);
