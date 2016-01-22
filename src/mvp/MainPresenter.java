@@ -47,6 +47,7 @@ public class MainPresenter extends Presenter<MainView>
     {
         LoadingScreenPresenter loadP = new LoadingScreenPresenter(model);
         long started = System.nanoTime();
+        final long waittime = 1000000000l;
         loadP.show();
         AnimationTimer later = new AnimationTimer()
         {
@@ -55,9 +56,9 @@ public class MainPresenter extends Presenter<MainView>
             @Override
             public void handle(long now)
             {
-                loadP.updateProgress((double) (now - started) / 5000000000l, "update");
+                loadP.updateProgress((double) (now - started) / waittime, "update");
 
-                if (!done && now > started + 5000000000l)
+                if (!done && now > started + waittime)
                 {
                     loadP.hide();
                     primaryStage.show();

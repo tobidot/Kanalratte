@@ -1,5 +1,6 @@
 package loadscreen;
 
+import asset.AssetManager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -23,11 +24,6 @@ import mvp.View;
 public class LoadView extends View<Pane>
 {
 
-    @SuppressWarnings("unused")
-    private String imagePath = "";
-
-    private String splashImage = "file:Test.png";
-
     private Rectangle loadImage;
 
     private Label loadUpdate;
@@ -40,8 +36,7 @@ public class LoadView extends View<Pane>
     {
         root = new Pane();
         root.getChildren().add(loadImage = new Rectangle());
-        Image image = new Image(splashImage);
-        loadImage.setFill(new ImagePattern(image, 0, 0, 1, 1, true));
+        loadImage.setFill(Color.DARKGRAY);
         loadImage.setWidth(400);
         loadImage.setHeight(300);
         loadImage.setArcHeight(80);
@@ -74,6 +69,14 @@ public class LoadView extends View<Pane>
     public void hide()
     {
         loadWindow.close();
+    }
+
+    public void setImage(Image image)
+    {
+        if (image != null)
+        {
+            loadImage.setFill(new ImagePattern(image, 0, 0, 1, 1, true));
+        }
     }
 
     public void setProgress(double percent, String out)
