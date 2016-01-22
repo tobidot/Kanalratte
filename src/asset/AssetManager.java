@@ -85,9 +85,13 @@ public class AssetManager
     public Image getImage(String key)
     {
         ResourceType rt = resources.get(key);
-        if (rt == null || rt instanceof ImageResource)
+        if (rt == null)
         {
-            throw new NoSuchElementException("ImageResource : '" + key + "' ist nicht vorhanden");
+            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
+        }
+        else if (rt instanceof ImageResource == false)
+        {
+            throw new NoSuchElementException("Resource : '" + key + "' ist kein Image");
         }
         else
         {
