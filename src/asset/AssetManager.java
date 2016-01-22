@@ -1,6 +1,7 @@
 package asset;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import javafx.scene.image.Image;
 
@@ -60,7 +61,7 @@ public class AssetManager
         ResourceType rt = resources.get(key);
         if (rt == null)
         {
-            return null;
+            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
         }
         else
         {
@@ -73,7 +74,7 @@ public class AssetManager
         ResourceType rt = resources.get(key);
         if (rt == null)
         {
-            return null;
+            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
         }
         else
         {
@@ -83,14 +84,14 @@ public class AssetManager
 
     public Image getImage(String key)
     {
-        ImageResource rt = (ImageResource) resources.get(key);
-        if (rt == null)
+        ResourceType rt = resources.get(key);
+        if (rt == null || rt instanceof ImageResource)
         {
-            return null;
+            throw new NoSuchElementException("ImageResource : '" + key + "' ist nicht vorhanden");
         }
         else
         {
-            return rt.getImage();
+            return ((ImageResource) rt).getImage();
         }
     }
 }
