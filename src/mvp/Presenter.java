@@ -1,5 +1,6 @@
 package mvp;
 
+import javafx.stage.Stage;
 import model.Model;
 
 @SuppressWarnings("rawtypes")
@@ -25,5 +26,10 @@ public abstract class Presenter<T extends View>
     public View getView()
     {
         return view;
+    }
+
+    protected void setStage(Stage primaryStage)
+    {
+        view.setStage(primaryStage);
     }
 }

@@ -3,7 +3,6 @@ package menues.main;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -32,37 +31,25 @@ public class MainMenuView extends View<VBox>
     public MainMenuView()
     {
         root = new VBox();
-        root.minHeight(Integer.MAX_VALUE);
-        root.prefHeight(Integer.MAX_VALUE);
+        root.setPrefHeight(Integer.MAX_VALUE);
         root.getChildren().add(new Label("MainMenu"));
+        root.setBackground(new Background(new BackgroundFill(Color.WHEAT, new CornerRadii(0), new Insets(0))));
         /// Oberste Struktur
         root.getChildren().add(headMenue = new HBox());
         root.getChildren().add(bodyMenue = new HBox());
         root.getChildren().add(footer = new Pane());
-        headMenue.prefHeight(10000);
-        bodyMenue.prefWidth(1000);
-        footer.prefHeight(5000);
+        headMenue.setPrefHeight(1000);
+        bodyMenue.setPrefHeight(1000);
+        footer.setPrefHeight(800);
         /// Body
         bodyMenue.getChildren().add(leftImage = new Rectangle());
         bodyMenue.getChildren().add(optionsContainer = new VBox(20));
         bodyMenue.getChildren().add(rightImage = new Rectangle());
 
-        leftImage.widthProperty().bind(root.widthProperty().multiply(0.4));
-        leftImage.heightProperty().bind(root.heightProperty().multiply(0.7));
-        root.heightProperty().addListener((src, o, n) -> {
-            System.out.println(n);
-        });
-        // leftImage.setHeight(500);
-
-        leftImage.prefWidth(10000);
-        optionsContainer.prefWidth(8000);
-        rightImage.prefWidth(10000);
-        leftImage.minWidth(10000);
-        optionsContainer.minWidth(8000);
-        rightImage.minWidth(10000);
-        leftImage.maxWidth(10000);
-        optionsContainer.maxWidth(8000);
-        rightImage.maxWidth(10000);
+        leftImage.widthProperty().bind(this.getResolutionWidth().multiply(0.35));
+        leftImage.heightProperty().bind(optionsContainer.heightProperty());
+        rightImage.widthProperty().bind(this.getResolutionWidth().multiply(0.35));
+        rightImage.heightProperty().bind(optionsContainer.heightProperty());
 
         leftImage.setFill(Color.BLACK);
         optionsContainer.setBackground(new Background(new BackgroundFill(Color.WHEAT, new CornerRadii(0), new Insets(0))));
@@ -70,8 +57,10 @@ public class MainMenuView extends View<VBox>
         ///
 
         /// Testen
+        Button b;
         optionsContainer.getChildren().add(new Button("TestOption"));
-        optionsContainer.getChildren().add(new Button("TestOption2"));
+        optionsContainer.getChildren().add(b = new Button("TestOption2"));
+        b.setPrefWidth(200);
     }
 
     /**
@@ -95,4 +84,5 @@ public class MainMenuView extends View<VBox>
             rightImage.setFill(images[2]);
         }
     }
+
 }

@@ -28,6 +28,7 @@ public class MainPresenter extends Presenter<MainView>
     public void addPresenter(Presenter p, String name)
     {
         childPresenter.put(name, p);
+        p.setStage(primaryStage);
     }
 
     public void choosePresenter(String name)
