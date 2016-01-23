@@ -19,17 +19,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import mvp.Presenter;
 import mvp.View;
 
-public class MainMenuView extends View<Pane>
+public class MainMenuView extends View<Pane, MainMenuPresenter>
 {
     private HBox headMenue;
 
     private VBox optionsContainer;
-
-    private Button[] options;
-
-    private Button nextPageButton;
 
     private SimpleObjectProperty<Background> optionsBackground;
 
@@ -46,26 +43,14 @@ public class MainMenuView extends View<Pane>
         optionsContainer.layoutXProperty().bind(getResolutionWidth().multiply(0.35));
         optionsContainer.layoutYProperty().bind(getResolutionHeight().multiply(0.1));
         optionsContainer.prefHeightProperty().bind(getResolutionHeight().multiply(0.7));
-        // optionsContainer.maxHeightProperty().bind(optionsContainer.prefHeightProperty());
-        optionsContainer.setMaxHeight(400);
         optionsContainer.prefWidthProperty().bind(getResolutionWidth().multiply(0.3));
         optionsContainer.setAlignment(Pos.TOP_CENTER);
         optionsContainer.setPadding(new Insets(50, 25, 20, 15));
         optionsContainer.spacingProperty().bind(getResolutionHeight().multiply(0.025));
 
         /// Buttons
-        options = new Button[8];
         optionsBackground = new SimpleObjectProperty<Background>();
         optionsBackground.set(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
-        for (int i = 0; i < 8; i++)
-        {
-            optionsContainer.getChildren().add(options[i] = new Button());
-            options[i].setVisible(false);
-            options[i].maxWidthProperty().bind(getResolutionWidth().multiply(0.3));
-            options[i].backgroundProperty().bind(optionsBackground);
-            options[i].setTextFill(Color.ALICEBLUE);
-            options[i].setFont(new Font("console", 18));
-        }
     }
 
     /**
@@ -97,18 +82,28 @@ public class MainMenuView extends View<Pane>
 
     public void setMenueOptions(String... strings)
     {
-        for (int i = 0; i < 8; i++)
+        optionsContainer.getChildren().clear();
+        if (strings != null)
         {
-            if (i < strings.length)
+            for (int i = 0; i < strings.length; i++)
             {
-                options[i].setVisible(true);
-                options[i].setText(strings[i]);
-            }
-            else
-            {
-                options[i].setVisible(true);
+                Button b;
+                optionsContainer.getChildren().add(b = new Button());
+                b.maxWidthProperty().bind(getResolutionWidth().multiply(0.3));
+                b.setBackground(optionsBackground.get());
+                b.setTextFill(Color.ALICEBLUE);
+                b.setFont(new Font("console", 18));
+                b.setVisible(true);
+                b.setText(strings[i]);
+                final int index = i;
+                b.setOnAction(e -> onOptionPressed(index));
             }
         }
+    }
+
+    private void onOptionPressed(int index)
+    {
+        presenter.onOptionPressed(index);
     }
 
 }

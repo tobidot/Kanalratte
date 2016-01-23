@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import mvp.View;
 
-public class LoadView extends View<Pane>
+public class LoadView extends View<Pane, LoadingScreenPresenter>
 {
 
     private Rectangle loadImage;

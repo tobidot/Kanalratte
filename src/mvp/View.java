@@ -1,21 +1,22 @@
 package mvp;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public abstract class View<T extends Pane>
+public abstract class View<T extends Pane, R extends Presenter>
 {
     protected T root;
 
+    @SuppressWarnings("unused")
     private Stage stage;
 
     private SimpleDoubleProperty resolutionHeight;
 
     private SimpleDoubleProperty resolutionWidth;
+
+    protected R presenter;
 
     public View()
     {
@@ -43,6 +44,11 @@ public abstract class View<T extends Pane>
         this.stage = stage;
         resolutionHeight.bind(stage.heightProperty());
         resolutionWidth.bind(stage.widthProperty());
+    }
+
+    public void setPresenter(R p)
+    {
+        this.presenter = p;
     }
 
 }

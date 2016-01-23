@@ -31,4 +31,19 @@ public class MainMenuPresenter extends Presenter<MainMenuView>
 
     }
 
+    public void onOptionPressed(int index)
+    {
+        switch (index)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                System.out.println("Out " + index);
+                break;
+        }
+
+    }
+
 }
