@@ -1,6 +1,11 @@
 package menues.main;
 
+import javax.swing.GroupLayout.Alignment;
+
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -13,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import mvp.View;
 
 public class MainMenuView extends View<Pane>
@@ -21,11 +27,16 @@ public class MainMenuView extends View<Pane>
 
     private VBox optionsContainer;
 
+    private Button[] options;
+
+    private Button nextPageButton;
+
+    private SimpleObjectProperty<Background> optionsBackground;
+
     public MainMenuView()
     {
         root = new Pane();
         root.setPrefHeight(Integer.MAX_VALUE);
-        root.getChildren().add(new Label("MainMenu"));
         root.setBackground(new Background(new BackgroundFill(Color.WHEAT, new CornerRadii(0), new Insets(0))));
         root.maxHeightProperty().bind(getResolutionHeight());
         /// Oberste Struktur
@@ -33,13 +44,28 @@ public class MainMenuView extends View<Pane>
         root.getChildren().add(optionsContainer = new VBox(20));
         headMenue.setPrefHeight(200);
         optionsContainer.layoutXProperty().bind(getResolutionWidth().multiply(0.35));
-        optionsContainer.layoutYProperty().bind(getResolutionHeight().multiply(0.2));
+        optionsContainer.layoutYProperty().bind(getResolutionHeight().multiply(0.1));
+        optionsContainer.prefHeightProperty().bind(getResolutionHeight().multiply(0.7));
+        // optionsContainer.maxHeightProperty().bind(optionsContainer.prefHeightProperty());
+        optionsContainer.setMaxHeight(400);
+        optionsContainer.prefWidthProperty().bind(getResolutionWidth().multiply(0.3));
+        optionsContainer.setAlignment(Pos.TOP_CENTER);
+        optionsContainer.setPadding(new Insets(50, 25, 20, 15));
+        optionsContainer.spacingProperty().bind(getResolutionHeight().multiply(0.025));
 
-        /// Testen
-        Button b;
-        optionsContainer.getChildren().add(new Button("TestOption"));
-        optionsContainer.getChildren().add(b = new Button("TestOption2"));
-        b.setPrefWidth(200);
+        /// Buttons
+        options = new Button[8];
+        optionsBackground = new SimpleObjectProperty<Background>();
+        optionsBackground.set(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
+        for (int i = 0; i < 8; i++)
+        {
+            optionsContainer.getChildren().add(options[i] = new Button());
+            options[i].setVisible(false);
+            options[i].maxWidthProperty().bind(getResolutionWidth().multiply(0.3));
+            options[i].backgroundProperty().bind(optionsBackground);
+            options[i].setTextFill(Color.ALICEBLUE);
+            options[i].setFont(new Font("console", 18));
+        }
     }
 
     /**
@@ -64,7 +90,24 @@ public class MainMenuView extends View<Pane>
             // leftImage.setFill(images[1]);
             // rightImage.setFill(images[2]);
             headMenue.setBackground(new Background(new BackgroundFill(images[0], new CornerRadii(0), new Insets(0))));
+            optionsContainer.setBackground(new Background(new BackgroundFill(images[1], new CornerRadii(0), new Insets(0))));
             root.setBackground(new Background(new BackgroundFill(images[2], new CornerRadii(0), new Insets(0))));
+        }
+    }
+
+    public void setMenueOptions(String... strings)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < strings.length)
+            {
+                options[i].setVisible(true);
+                options[i].setText(strings[i]);
+            }
+            else
+            {
+                options[i].setVisible(true);
+            }
         }
     }
 

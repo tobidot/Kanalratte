@@ -17,7 +17,6 @@ public class MainView extends View<VBox>
     public MainView()
     {
         root = new VBox();
-        root.getChildren().add(new Label("Main"));
         root.setMinWidth(400);
         root.setMinHeight(300);
         root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(0), new Insets(0))));

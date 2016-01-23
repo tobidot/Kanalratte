@@ -12,10 +12,11 @@ public class MainMenuPresenter extends Presenter<MainMenuView>
     {
         super(mainP, model, new MainMenuView());
         ImagePattern[] menue = new ImagePattern[6];
-        menue[0] = new ImagePattern(model.getImage("TEST"), 0, 0, 1, 1, true);
-        menue[1] = new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true);
+        menue[0] = new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true);
+        menue[1] = new ImagePattern(model.getImage("MENUE_OPTIONS_BACK"), 0, 0, 1, 1, true);
         menue[2] = new ImagePattern(model.getImage("MENUE_RIGHT"), 0, 0, 1, 1, true);
         view.setImageSet(menue);
+        view.setMenueOptions("Spielen", "Einstellungen", "Exit");
     }
 
     @Override
