@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import loadscreen.LoadingScreenPresenter;
+import menues.einstellungen.MenuEinstellungenPresenter;
 import menues.main.MainMenuPresenter;
 import model.Model;
 import mvp.MainPresenter;
@@ -30,7 +31,8 @@ public class Starter extends Application
         Model model = new Model();
         MainPresenter presenter = new MainPresenter(model, stage);
 
-        presenter.addPresenter(new MainMenuPresenter(presenter, model), "main menü");
+        presenter.addPresenter(new MainMenuPresenter(presenter, model), "menü-main");
+        presenter.addPresenter(new MenuEinstellungenPresenter(presenter, model), "menü-einstellungen");
 
         Pane root = presenter.getView().getUI();
         Scene scene = new Scene(root);

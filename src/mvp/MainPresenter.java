@@ -27,12 +27,14 @@ public class MainPresenter extends Presenter<MainView>
 
     public void addPresenter(Presenter p, String name)
     {
+        name = name.toLowerCase();
         childPresenter.put(name, p);
         p.setStage(primaryStage);
     }
 
     public void choosePresenter(String name)
     {
+        name = name.toLowerCase();
         if (childPresenter.containsKey(name))
         {
             if (currentPresenter != null)
@@ -63,7 +65,7 @@ public class MainPresenter extends Presenter<MainView>
                 {
                     loadP.hide();
                     primaryStage.show();
-                    choosePresenter("main menü");
+                    choosePresenter("menü-main");
                     done = true;
                     this.stop();
                 }

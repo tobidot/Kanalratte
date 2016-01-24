@@ -2,11 +2,8 @@ package menues.einstellungen;
 
 import javafx.scene.paint.ImagePattern;
 import menues.base.MenuBasePresenter;
-import menues.main.MainMenuView;
 import model.Model;
 import mvp.MainPresenter;
-import mvp.Presenter;
-import mvp.View;
 
 public class MenuEinstellungenPresenter extends MenuBasePresenter
 {
@@ -25,7 +22,16 @@ public class MenuEinstellungenPresenter extends MenuBasePresenter
     @Override
     public void onOptionPressed(int index)
     {
-
+        switch (index)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                mainPresenter.choosePresenter("menü-main");
+                break;
+        }
     }
 
 }
