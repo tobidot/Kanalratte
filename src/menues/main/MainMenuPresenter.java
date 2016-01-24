@@ -12,7 +12,7 @@ public class MainMenuPresenter extends MenuBasePresenter
     public MainMenuPresenter(MainPresenter mainP, Model model)
     {
         super(mainP, model);
-        ImagePattern[] menue = new ImagePattern[6];
+        ImagePattern[] menue = new ImagePattern[3];
         menue[0] = new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true);
         menue[1] = new ImagePattern(model.getImage("MENUE_OPTIONS_BACK"), 0, 0, 1, 1, true);
         menue[2] = new ImagePattern(model.getImage("MENUE_RIGHT"), 0, 0, 1, 1, true);

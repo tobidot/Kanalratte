@@ -59,6 +59,7 @@ public class MenuBaseView extends View<Pane, MenuBasePresenter>
      * <li>0 - Oberste Zeile "Header Bild"
      * <li>1 - hinter den Optionen
      * <li>2 - Bild hinter dem ganzem Menü
+     * <li>3 - Bild hinter einer einzelnen Option
      * <ul>
      * 
      * @param images
@@ -66,17 +67,25 @@ public class MenuBaseView extends View<Pane, MenuBasePresenter>
      */
     public void setImageSet(ImagePattern... images)
     {
-        if (images == null || images.length < 3)
+        if (images == null)
         {
             return;
         }
         else
         {
-            // leftImage.setFill(images[1]);
-            // rightImage.setFill(images[2]);
-            headMenue.setBackground(new Background(new BackgroundFill(images[0], new CornerRadii(0), new Insets(0))));
-            optionsContainer.setBackground(new Background(new BackgroundFill(images[1], new CornerRadii(0), new Insets(0))));
-            root.setBackground(new Background(new BackgroundFill(images[2], new CornerRadii(0), new Insets(0))));
+            switch (images.length)
+            {
+                case 4:
+                    optionsBackground.set(new Background(new BackgroundFill(images[3], new CornerRadii(0), new Insets(0))));
+                case 3:
+                    root.setBackground(new Background(new BackgroundFill(images[2], new CornerRadii(0), new Insets(0))));
+                case 2:
+                    optionsContainer.setBackground(new Background(new BackgroundFill(images[1], new CornerRadii(0), new Insets(0))));
+                case 1:
+                    headMenue.setBackground(new Background(new BackgroundFill(images[0], new CornerRadii(0), new Insets(0))));
+
+                    break;
+            }
         }
     }
 
