@@ -1,4 +1,4 @@
-package menues.main;
+package menues.base;
 
 import javax.swing.GroupLayout.Alignment;
 
@@ -19,11 +19,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import menues.base.MenuBasePresenter;
 import mvp.Presenter;
 import mvp.View;
 
-public class MainMenuView<T extends MenuBasePresenter> extends View<Pane, T>
+public class MenuBaseView extends View<Pane, MenuBasePresenter>
 {
     private HBox headMenue;
 
@@ -31,7 +30,7 @@ public class MainMenuView<T extends MenuBasePresenter> extends View<Pane, T>
 
     private SimpleObjectProperty<Background> optionsBackground;
 
-    public MainMenuView()
+    public MenuBaseView()
     {
         root = new Pane();
         root.setPrefHeight(Integer.MAX_VALUE);
