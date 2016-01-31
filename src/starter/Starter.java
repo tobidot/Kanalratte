@@ -2,6 +2,7 @@ package starter;
 
 import com.sun.scenario.animation.AnimationPulse;
 
+import game.mvp.GamePresenter;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -33,6 +34,7 @@ public class Starter extends Application
 
         presenter.addPresenter(new MainMenuPresenter(presenter, model), "menü-main");
         presenter.addPresenter(new MenuEinstellungenPresenter(presenter, model), "menü-einstellungen");
+        presenter.addPresenter(new GamePresenter(presenter, model), "game");
 
         Pane root = presenter.getView().getUI();
         Scene scene = new Scene(root);

@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Model;
 
 public abstract class View<T extends Pane, R extends Presenter>
 {
@@ -50,5 +51,7 @@ public abstract class View<T extends Pane, R extends Presenter>
     {
         this.presenter = p;
     }
+
+    protected abstract void setImages(Model model);
 
 }

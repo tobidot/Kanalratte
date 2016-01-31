@@ -37,10 +37,15 @@ public class MainMenuPresenter extends MenuBasePresenter
         switch (index)
         {
             case 0:
-                mainPresenter.choosePresenter("menü-einstellungen");
+                mainPresenter.choosePresenter("game");
+                break;
             case 1:
+                mainPresenter.choosePresenter("menü-einstellungen");
+                break;
             case 2:
+                break;
             case 3:
+                break;
             case 4:
                 System.out.println("Out " + index);
                 break;

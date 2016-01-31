@@ -17,6 +17,7 @@ public abstract class Presenter<T extends View>
         this.model = model;
         this.view = view;
         this.view.setPresenter(this);
+        this.view.setImages(model);
         this.mainPresenter = mainPresenter;
     }
 

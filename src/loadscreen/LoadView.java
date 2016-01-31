@@ -19,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Model;
 import mvp.View;
 
 public class LoadView extends View<Pane, LoadingScreenPresenter>
@@ -83,5 +84,11 @@ public class LoadView extends View<Pane, LoadingScreenPresenter>
     {
         loadUpdate.setText(out + " : (" + String.format("%.1f", percent * 100) + "%) ");
         loadUpdateBar.setProgress(percent);
+    }
+
+    @Override
+    protected void setImages(Model model)
+    {
+
     }
 }

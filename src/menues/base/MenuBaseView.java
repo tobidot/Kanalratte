@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import model.Model;
 import mvp.Presenter;
 import mvp.View;
 
@@ -113,6 +114,12 @@ public class MenuBaseView extends View<Pane, MenuBasePresenter>
     private void onOptionPressed(int index)
     {
         presenter.onOptionPressed(index);
+    }
+
+    @Override
+    protected void setImages(Model model)
+    {
+
     }
 
 }

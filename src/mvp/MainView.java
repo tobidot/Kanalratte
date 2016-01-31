@@ -8,6 +8,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import model.Model;
 
 public class MainView extends View<VBox, MainPresenter>
 {
@@ -32,6 +33,13 @@ public class MainView extends View<VBox, MainPresenter>
         }
         embededPane = ui;
         root.getChildren().add(embededPane);
+    }
+
+    @Override
+    protected void setImages(Model model)
+    {
+        // TODO Auto-generated method stub
+
     }
 
 }

@@ -85,4 +85,15 @@ public class MainPresenter extends Presenter<MainView>
     {
 
     }
+
+    public void activateInGameWindow()
+    {
+
+    }
+
+    public void deactivateInGameWindow()
+    {
+        // TODO Auto-generated method stub
+
+    }
 }
