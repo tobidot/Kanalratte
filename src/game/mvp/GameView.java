@@ -1,7 +1,11 @@
 package game.mvp;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableDoubleValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -38,7 +42,7 @@ public class GameView extends View<HBox, GamePresenter>
         root.getChildren().add(left = new VBox());
         root.getChildren().add(gameMenu = new GridPane());
         root.setFillHeight(true);
-        root.setPrefHeight(this.getResolutionHeight().doubleValue());
+        root.setMaxHeight(600);
         left.setPrefWidth(5000);
         /// ingameScreen Layout
         left.getChildren().add(gameScreen = new Pane());
@@ -46,27 +50,39 @@ public class GameView extends View<HBox, GamePresenter>
         gameScreen.setMinSize(300, 200);
         gameScreen.setPrefSize(800, 600);
         /// GameMenu Layout
+
         gameMenu.setPrefWidth(4500);
-        // gameMenu.setMinHeight(5000);
-        gameMenu.setMaxHeight(1000);
         gameMenu.setPrefHeight(Integer.MAX_VALUE);
+
+        /// GridPane
+        DoubleBinding perc10 = getResolutionHeight().multiply(0.1);
+        DoubleBinding perc20 = getResolutionHeight().multiply(0.2);
+        DoubleBinding perc40 = getResolutionHeight().multiply(0.4);
         RowConstraints r;
         ObservableList<RowConstraints> rows = gameMenu.getRowConstraints();
         rows.add(r = new RowConstraints());
-        r.setPercentHeight(50);
-        for (int i = 0; i < 5; i++)
+        r.maxHeightProperty().bind(perc20);
+        r.prefHeightProperty().bind(perc20);
+        r.minHeightProperty().bind(perc20);
+        for (int i = 0; i < 4; i++)
         {
             rows.add(r = new RowConstraints());
-            r.setPercentHeight(1);
+            r.maxHeightProperty().bind(perc10);
+            r.prefHeightProperty().bind(perc10);
+            r.minHeightProperty().bind(perc10);
         }
         rows.add(r = new RowConstraints());
-        r.setPercentHeight(3);
+        r.maxHeightProperty().bind(perc40);
+        r.prefHeightProperty().bind(perc40);
+        r.minHeightProperty().bind(perc40);
+
+        /// Buttons add
         Button b;
         gameMenu.add(b = exitButton = new Button("Exit"), 0, 0, 2, 1);
         exitButton.setPrefHeight(1000);
         exitButton.setPrefWidth(1000);
-        exitButton.setMaxHeight(1000);
-        gameMenu.add(b = new Button("INFO"), 0, 6, 2, 1);
+        // exitButton.setMaxHeight(1000);
+        gameMenu.add(b = new Button("INFO"), 0, 5, 2, 1);
         b.setPrefHeight(1000);
         b.setPrefWidth(1000);
         b.setMaxHeight(1000);
@@ -80,7 +96,7 @@ public class GameView extends View<HBox, GamePresenter>
 
     private void addGameMenuButton(String cap)
     {
-        if (gameMenuButton.size() >= 10)
+        if (gameMenuButton.size() >= 8)
             return;
         Button b = new Button(cap);
         b.setPrefHeight(1000);

@@ -40,11 +40,29 @@ public abstract class View<T extends Pane, R extends Presenter>
         return resolutionHeight;
     }
 
+    /**
+     * resolution bind to scene if possible otherwise to the stage
+     * 
+     * @param stage
+     *            stage wich holds the scene
+     */
     public void setStage(Stage stage)
     {
         this.stage = stage;
         resolutionHeight.bind(stage.heightProperty());
         resolutionWidth.bind(stage.widthProperty());
+        stage.sceneProperty().addListener((src, o, n) -> {
+            if (n != null)
+            {
+                resolutionWidth.bind(n.heightProperty());
+                resolutionHeight.bind(n.heightProperty());
+            }
+            else
+            {
+                resolutionHeight.bind(stage.heightProperty());
+                resolutionWidth.bind(stage.widthProperty());
+            }
+        });
     }
 
     public void setPresenter(R p)
