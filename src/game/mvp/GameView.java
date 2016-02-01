@@ -19,6 +19,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import model.Model;
 import mvp.View;
 
@@ -89,10 +90,10 @@ public class GameView extends View<HBox, GamePresenter>
         b.setMaxHeight(Integer.MAX_VALUE);
 
         gameMenuButton = new ArrayList<Button>();
-        addGameMenuButton("Feed");
-        addGameMenuButton("Soldier");
+        addGameMenuButton("Feed", null);
+        addGameMenuButton("Soldier", null);
         for (int i = 0; i < 10; i++)
-            addGameMenuButton("House" + i);
+            addGameMenuButton("House" + i, null);
     }
 
     /**
@@ -101,11 +102,19 @@ public class GameView extends View<HBox, GamePresenter>
      * @param cap
      *            Beschreibung des Buttons
      */
-    private void addGameMenuButton(String cap)
+    private void addGameMenuButton(String cap, Background back)
     {
         if (gameMenuButton.size() >= 8)
             return;
         Button b = new Button(cap);
+        if (back != null)
+        {
+            b.setBackground(back);
+        }
+        else
+        {
+            b.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(0), new Insets(0))));
+        }
         b.prefHeightProperty().bind(this.getResolutionHeight().multiply(0.09));
         b.setPrefWidth(Integer.MAX_VALUE);
         b.setMaxHeight(Integer.MAX_VALUE);
@@ -118,6 +127,7 @@ public class GameView extends View<HBox, GamePresenter>
     protected void setImages(Model model)
     {
         gameMenu.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(0), new Insets(0))));
-        exitButton.setBackground(new Background(new BackgroundFill(new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true), new CornerRadii(0), new Insets(0))));
+
+        exitButton.setBackground(model.getAsBackground("MENUE_LEFT"));
     }
 }

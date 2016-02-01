@@ -3,7 +3,12 @@ package asset;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 
 public class AssetManager
 {
@@ -43,6 +48,11 @@ public class AssetManager
         public Image getImage()
         {
             return (Image) resource;
+        }
+
+        public Background getAsBackGround()
+        {
+            return new Background(new BackgroundFill(new ImagePattern((Image) resource, 0, 0, 1, 1, true), new CornerRadii(0), new Insets(0)));
         }
     }
 
@@ -99,4 +109,5 @@ public class AssetManager
             return ((ImageResource) rt).getImage();
         }
     }
+
 }

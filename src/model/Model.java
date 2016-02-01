@@ -1,7 +1,13 @@
 package model;
 
 import asset.AssetManager;
+import asset.AssetManager.ImageResource;
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 
 public class Model
@@ -29,6 +35,11 @@ public class Model
     public Image getImage(String key)
     {
         return assets.getImage(key);
+    }
+
+    public Background getAsBackground(String key)
+    {
+        return new Background(new BackgroundFill(new ImagePattern(getImage(key), 0, 0, 1, 1, true), new CornerRadii(0), new Insets(0)));
     }
 
     public void bindStageResolution(Stage stage)
