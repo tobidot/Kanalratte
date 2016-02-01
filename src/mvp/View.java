@@ -54,7 +54,7 @@ public abstract class View<T extends Pane, R extends Presenter>
         stage.sceneProperty().addListener((src, o, n) -> {
             if (n != null)
             {
-                resolutionWidth.bind(n.heightProperty());
+                resolutionWidth.bind(n.widthProperty());
                 resolutionHeight.bind(n.heightProperty());
             }
             else
