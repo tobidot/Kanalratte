@@ -65,6 +65,8 @@ public class AssetManager
         resources.put("MENUE_RIGHT", new ImageResource("file:bilder/menue_right.png"));
         resources.put("MENUE_OPTIONS_BACK", new ImageResource("file:bilder/options_background.png"));
         resources.put("MENUE_LEFT", new ImageResource("file:bilder/menue_left.png"));
+        resources.put("MENUE_MORE_LEFT", new ImageResource("file:bilder/InGameAuswahl_Blättern_left.png"));
+        resources.put("MENUE_MORE_RIGHT", new ImageResource("file:bilder/InGameAuswahl_Blättern_right.png"));
     }
 
     public String getResourcePath(String key)

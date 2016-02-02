@@ -31,6 +31,12 @@ public class GameView extends View<HBox, GamePresenter>
 
     private GridPane gameMenu;
 
+    private Button moreLeft;
+
+    private Button moreRight;
+
+    private Button menuInfo;
+
     private Button exitButton;
 
     private ArrayList<Button> gameMenuButton;
@@ -55,10 +61,12 @@ public class GameView extends View<HBox, GamePresenter>
         // TODO apply Layout
 
         /// GameMenu Layout
+        gameMenu.hgapProperty().bind(getResolutionWidth().multiply(0.01));
         /// GridPane
+        DoubleBinding perc5 = getResolutionHeight().multiply(0.05);
         DoubleBinding perc10 = getResolutionHeight().multiply(0.1);
         DoubleBinding perc20 = getResolutionHeight().multiply(0.2);
-        DoubleBinding perc40 = getResolutionHeight().multiply(0.4);
+        DoubleBinding perc40 = getResolutionHeight().multiply(0.35);
         RowConstraints r;
         ObservableList<RowConstraints> rows = gameMenu.getRowConstraints();
         rows.add(r = new RowConstraints());
@@ -74,6 +82,10 @@ public class GameView extends View<HBox, GamePresenter>
             r.setFillHeight(false);
         }
         rows.add(r = new RowConstraints());
+        r.maxHeightProperty().bind(perc5);
+        r.prefHeightProperty().bind(perc5);
+        r.minHeightProperty().bind(perc5);
+        rows.add(r = new RowConstraints());
         r.maxHeightProperty().bind(perc40);
         r.prefHeightProperty().bind(perc40);
         r.minHeightProperty().bind(perc40);
@@ -84,50 +96,65 @@ public class GameView extends View<HBox, GamePresenter>
         exitButton.setPrefHeight(Integer.MAX_VALUE);
         exitButton.setPrefWidth(Integer.MAX_VALUE);
         exitButton.setMaxHeight(Integer.MAX_VALUE);
-        gameMenu.add(b = new Button("INFO"), 0, 5, 2, 1);
+        gameMenu.add(b = moreLeft = new Button(), 0, 5);
+        b.setPrefHeight(Integer.MAX_VALUE);
+        b.setPrefWidth(Integer.MAX_VALUE);
+        b.setMaxHeight(Integer.MAX_VALUE);
+        gameMenu.add(b = moreRight = new Button(), 1, 5);
+        b.setPrefHeight(Integer.MAX_VALUE);
+        b.setPrefWidth(Integer.MAX_VALUE);
+        b.setMaxHeight(Integer.MAX_VALUE);
+        gameMenu.add(b = menuInfo = new Button("INFO"), 0, 6, 2, 1);
         b.setPrefHeight(Integer.MAX_VALUE);
         b.setPrefWidth(Integer.MAX_VALUE);
         b.setMaxHeight(Integer.MAX_VALUE);
 
-        gameMenuButton = new ArrayList<Button>();
-        addGameMenuButton("Feed", null);
-        addGameMenuButton("Soldier", null);
-        for (int i = 0; i < 10; i++)
-            addGameMenuButton("House" + i, null);
     }
 
     /**
-     * fügt dem Ingame Auswahl-Menü eine weitere Option hinzu
+     * fügt dem Ingame Auswahl-Menü eine weitere Option hinzu kann nur 8
+     * optionen gleichzeitig zeigen
      * 
      * @param cap
      *            Beschreibung des Buttons
      */
     private void addGameMenuButton(String cap, Background back)
     {
-        if (gameMenuButton.size() >= 8)
-            return;
-        Button b = new Button(cap);
-        if (back != null)
+        if (gameMenuButton.size() < 8)
         {
-            b.setBackground(back);
+            Button b = new Button(cap);
+            if (back != null)
+            {
+                b.setBackground(back);
+            }
+            else
+            {
+                b.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(0), new Insets(0))));
+            }
+            GridPane.setFillWidth(b, false);
+            GridPane.setFillHeight(b, false);
+
+            b.prefHeightProperty().bind(this.getResolutionHeight().multiply(0.09));
+            b.prefWidthProperty().bind(this.getResolutionWidth().multiply(0.12));
+            b.setMaxHeight(Integer.MAX_VALUE);
+            b.setMaxWidth(Integer.MAX_VALUE);
+            gameMenu.add(b, (gameMenuButton.size()) % 2, (gameMenuButton.size()) / 2 + 1);
+            System.out.println(gameMenuButton.size());
+            gameMenuButton.add(b);
         }
-        else
-        {
-            b.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(0), new Insets(0))));
-        }
-        b.prefHeightProperty().bind(this.getResolutionHeight().multiply(0.09));
-        b.setPrefWidth(Integer.MAX_VALUE);
-        b.setMaxHeight(Integer.MAX_VALUE);
-        b.setMaxWidth(Integer.MAX_VALUE);
-        gameMenu.add(b, (gameMenuButton.size()) % 2, (gameMenuButton.size()) / 2 + 1);
-        System.out.println(gameMenuButton.size());
-        gameMenuButton.add(b);
     }
 
     protected void setImages(Model model)
     {
         gameMenu.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(0), new Insets(0))));
-
+        moreLeft.setBackground(model.getAsBackground("MENUE_MORE_LEFT"));
+        moreRight.setBackground(model.getAsBackground("MENUE_MORE_RIGHT"));
         exitButton.setBackground(model.getAsBackground("MENUE_LEFT"));
+
+        gameMenuButton = new ArrayList<Button>();
+        addGameMenuButton("Feed", model.getAsBackground("TEST"));
+        addGameMenuButton("Soldier", null);
+        for (int i = 0; i < 10; i++)
+            addGameMenuButton("House" + i, null);
     }
 }
