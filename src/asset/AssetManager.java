@@ -67,6 +67,8 @@ public class AssetManager
         resources.put("MENUE_LEFT", new ImageResource("file:bilder/menue_left.png"));
         resources.put("MENUE_MORE_LEFT", new ImageResource("file:bilder/InGameAuswahl_Blättern_left.png"));
         resources.put("MENUE_MORE_RIGHT", new ImageResource("file:bilder/InGameAuswahl_Blättern_right.png"));
+        resources.put("MENUE_INFO_NONE", new ImageResource("file:bilder/Info_NoSelect.png"));
+        resources.put("MENUE_EXIT", new ImageResource("file:bilder/Exit_Button.png"));
     }
 
     public String getResourcePath(String key)

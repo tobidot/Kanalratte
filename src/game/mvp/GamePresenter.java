@@ -42,7 +42,14 @@ public class GamePresenter extends Presenter<GameView>
             case "Soldier":
                 System.out.println("Soldat ausbilden");
                 break;
+
         }
+    }
+
+    public void onExit()
+    {
+        mainPresenter.choosePresenter("menü-main");
+
     }
 
 }

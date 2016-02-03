@@ -42,6 +42,10 @@ public class GameView extends View<HBox, GamePresenter>
 
     public GameView()
     {
+
+        gameMenuButton = new ArrayList<Button>();
+        gameMenuButtonID = new ArrayList<String>();
+
         VBox left;
         root = new HBox();
         /// main Layout
@@ -91,10 +95,13 @@ public class GameView extends View<HBox, GamePresenter>
 
         /// Buttons add
         Button b;
-        gameMenu.add(b = exitButton = new Button("Exit"), 0, 0, 2, 1);
+        gameMenu.add(b = exitButton = new Button(), 0, 0, 2, 1);
         exitButton.setPrefHeight(Integer.MAX_VALUE);
         exitButton.setPrefWidth(Integer.MAX_VALUE);
         exitButton.setMaxHeight(Integer.MAX_VALUE);
+        exitButton.setOnAction(e -> {
+            onExit();
+        });
         gameMenu.add(b = moreLeft = new Button(), 0, 5);
         b.setPrefHeight(Integer.MAX_VALUE);
         b.setPrefWidth(Integer.MAX_VALUE);
@@ -109,10 +116,16 @@ public class GameView extends View<HBox, GamePresenter>
         b.setOnAction(e -> {
             gameMenuMoreRight();
         });
-        gameMenu.add(b = menuInfo = new Button("INFO"), 0, 6, 2, 1);
+        gameMenu.add(b = menuInfo = new Button(), 0, 6, 2, 1);
         b.setPrefHeight(Integer.MAX_VALUE);
         b.setPrefWidth(Integer.MAX_VALUE);
         b.setMaxHeight(Integer.MAX_VALUE);
+
+    }
+
+    private void onExit()
+    {
+        presenter.onExit();
 
     }
 
@@ -179,10 +192,9 @@ public class GameView extends View<HBox, GamePresenter>
         gameMenu.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(0), new Insets(0))));
         moreLeft.setBackground(model.getAsBackground("MENUE_MORE_LEFT"));
         moreRight.setBackground(model.getAsBackground("MENUE_MORE_RIGHT"));
-        exitButton.setBackground(model.getAsBackground("TEST"));
-        menuInfo.setBackground(model.getAsBackground("MENUE_LEFT"));
+        exitButton.setBackground(model.getAsBackground("MENUE_EXIT"));
+        menuInfo.setBackground(model.getAsBackground("MENUE_INFO_NONE"));
 
-        gameMenuButton = new ArrayList<Button>();
     }
 
     private void updateGameMenu()
