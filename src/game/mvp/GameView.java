@@ -61,6 +61,8 @@ public class GameView extends View<HBox, GamePresenter>
         /// ingameScreen Layout
         left.getChildren().add(gameScreen = new Pane());
         left.getChildren().add(statusInfo = new GridPane());
+        gameScreen.prefHeightProperty().bind(getResolutionHeight().multiply(0.75));
+        statusInfo.prefHeightProperty().bind(getResolutionHeight().multiply(0.25));
         // TODO apply Layout
 
         /// GameMenu Layout
@@ -126,7 +128,6 @@ public class GameView extends View<HBox, GamePresenter>
     private void onExit()
     {
         presenter.onExit();
-
     }
 
     /**
@@ -194,6 +195,8 @@ public class GameView extends View<HBox, GamePresenter>
         moreRight.setBackground(model.getAsBackground("MENUE_MORE_RIGHT"));
         exitButton.setBackground(model.getAsBackground("MENUE_EXIT"));
         menuInfo.setBackground(model.getAsBackground("MENUE_INFO_NONE"));
+        gameScreen.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(0), new Insets(0))));
+        statusInfo.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
 
     }
 

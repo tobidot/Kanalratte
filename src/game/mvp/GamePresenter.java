@@ -49,7 +49,6 @@ public class GamePresenter extends Presenter<GameView>
     public void onExit()
     {
         mainPresenter.choosePresenter("menü-main");
-
     }
 
 }
