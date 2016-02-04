@@ -3,8 +3,10 @@ package game.mvp;
 import java.util.ArrayList;
 
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -13,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.Model;
@@ -40,6 +43,12 @@ public class GameView extends View<HBox, GamePresenter>
 
     private ArrayList<String> gameMenuButtonID;
 
+    private StackPane selectInfoProfile;
+
+    private StackPane selectInfoLife;
+
+    private StackPane selectInfoMana;
+
     public GameView()
     {
 
@@ -61,11 +70,15 @@ public class GameView extends View<HBox, GamePresenter>
         /// ingameScreen Layout
         left.getChildren().add(gameScreen = new Pane());
         left.getChildren().add(statusInfo = new GridPane());
-        gameScreen.prefHeightProperty().bind(getResolutionHeight().multiply(0.75));
-        statusInfo.prefHeightProperty().bind(getResolutionHeight().multiply(0.25));
-        // TODO apply Layout
+        inGameScreenLayout();
 
         /// GameMenu Layout
+        gameMenuLayout();
+
+    }
+
+    private void gameMenuLayout()
+    {
         gameMenu.hgapProperty().bind(getResolutionWidth().multiply(0.01));
         /// GridPane
         DoubleBinding perc5 = getResolutionHeight().multiply(0.05);
@@ -122,7 +135,40 @@ public class GameView extends View<HBox, GamePresenter>
         b.setPrefHeight(Integer.MAX_VALUE);
         b.setPrefWidth(Integer.MAX_VALUE);
         b.setMaxHeight(Integer.MAX_VALUE);
+    }
 
+    private void inGameScreenLayout()
+    {
+        gameScreen.prefHeightProperty().bind(getResolutionHeight().multiply(0.75));
+        statusInfo.prefHeightProperty().bind(getResolutionHeight().multiply(0.25));
+
+        RowConstraints r;
+        statusInfo.getRowConstraints().add(r = new RowConstraints());
+        r.setPercentHeight(50);
+        statusInfo.getRowConstraints().add(r = new RowConstraints());
+        r.setPercentHeight(50);
+
+        statusInfo.add(selectInfoProfile = new StackPane(), 0, 0, 2, 2);
+        GridPane.setFillHeight(selectInfoProfile, true);
+        statusInfo.add(selectInfoLife = new StackPane(), 2, 0);
+        GridPane.setFillHeight(selectInfoLife, true);
+        statusInfo.add(selectInfoMana = new StackPane(), 2, 1);
+        GridPane.setFillHeight(selectInfoMana, true);
+        selectInfoProfile.prefWidthProperty().bind(getResolutionWidth().multiply(0.2));
+        selectInfoLife.prefWidthProperty().bind(getResolutionWidth().multiply(0.08));
+        selectInfoMana.prefWidthProperty().bind(getResolutionWidth().multiply(0.08));
+        /// 16 Felder(8 breit) mit Fähigkeiten
+        DoubleBinding w = getResolutionWidth().multiply(0.06);
+        for (int i = 0; i < 16; i++)
+        {
+            Button b;
+            statusInfo.add(b = new Button("i"), 3 + i % 8, i / 8);
+            b.prefWidthProperty().bind(w);
+            b.maxWidthProperty().bind(w);
+            b.prefHeightProperty().bind(w);
+            b.maxHeightProperty().bind(w);
+        }
+        // TODO
     }
 
     private void onExit()
@@ -195,8 +241,13 @@ public class GameView extends View<HBox, GamePresenter>
         moreRight.setBackground(model.getAsBackground("MENUE_MORE_RIGHT"));
         exitButton.setBackground(model.getAsBackground("MENUE_EXIT"));
         menuInfo.setBackground(model.getAsBackground("MENUE_INFO_NONE"));
+
         gameScreen.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(0), new Insets(0))));
-        statusInfo.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
+        statusInfo.setBackground(new Background(new BackgroundFill(Color.GRAY, new CornerRadii(0), new Insets(0))));
+
+        selectInfoProfile.setBackground(model.getAsBackground("MENUE_INFO_NONE"));
+        selectInfoLife.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
+        selectInfoMana.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(0), new Insets(0))));
 
     }
 
