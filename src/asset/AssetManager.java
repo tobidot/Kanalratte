@@ -69,6 +69,11 @@ public class AssetManager
         resources.put("MENUE_MORE_RIGHT", new ImageResource("file:bilder/InGameAuswahl_Blättern_right.png"));
         resources.put("MENUE_INFO_NONE", new ImageResource("file:bilder/Info_NoSelect.png"));
         resources.put("MENUE_EXIT", new ImageResource("file:bilder/Exit_Button.png"));
+
+        resources.put("ABILITY_A", new ImageResource("file:bilder/Abbility_Move.png"));
+        resources.put("ABILITY_B", new ImageResource("file:bilder/Abbility_Move.png"));
+        resources.put("ABILITY_C", new ImageResource("file:bilder/Abbility_Attack.png"));
+        resources.put("ABILITY_D", new ImageResource("file:bilder/Abbility_Attack.png"));
     }
 
     public String getResourcePath(String key)

@@ -49,6 +49,12 @@ public class GameView extends View<HBox, GamePresenter>
 
     private StackPane selectInfoMana;
 
+    private final int abilitiesCount = 12;
+
+    private String inAbilityID[] = new String[abilitiesCount];
+
+    private Button[] inAbilityButton = new Button[abilitiesCount];
+
     public GameView()
     {
 
@@ -154,21 +160,54 @@ public class GameView extends View<HBox, GamePresenter>
         GridPane.setFillHeight(selectInfoLife, true);
         statusInfo.add(selectInfoMana = new StackPane(), 2, 1);
         GridPane.setFillHeight(selectInfoMana, true);
-        selectInfoProfile.prefWidthProperty().bind(getResolutionWidth().multiply(0.2));
-        selectInfoLife.prefWidthProperty().bind(getResolutionWidth().multiply(0.08));
-        selectInfoMana.prefWidthProperty().bind(getResolutionWidth().multiply(0.08));
+        selectInfoProfile.prefWidthProperty().bind(getResolutionWidth().multiply(0.27));
+        selectInfoLife.prefWidthProperty().bind(getResolutionWidth().multiply(0.02));
+        selectInfoMana.prefWidthProperty().bind(getResolutionWidth().multiply(0.02));
         /// 16 Felder(8 breit) mit Fähigkeiten
-        DoubleBinding w = getResolutionWidth().multiply(0.06);
-        for (int i = 0; i < 16; i++)
+        DoubleBinding w = getResolutionWidth().multiply(0.40 / (abilitiesCount / 2));
+        for (int i = 0; i < abilitiesCount; i++)
         {
+            final int index = i;
             Button b;
-            statusInfo.add(b = new Button("i"), 3 + i % 8, i / 8);
+            statusInfo.add(b = inAbilityButton[i] = new Button("" + i), 3 + i % (abilitiesCount / 2), i / (abilitiesCount / 2));
+            b.setVisible(false);
             b.prefWidthProperty().bind(w);
             b.maxWidthProperty().bind(w);
             b.prefHeightProperty().bind(w);
             b.maxHeightProperty().bind(w);
+            getResolutionWidth().addListener((src, o, n) -> {
+                GridPane.setMargin(b, new Insets(n.doubleValue() * 0.06 / (abilitiesCount / 2)));
+            });
+            b.setOnAction(e -> {
+                onAbilityUsed(inAbilityID[index]);
+            });
         }
         // TODO
+    }
+
+    public void showAbbilties(String abs[], Background backs[])
+    {
+        if (abs.length != backs.length)
+            return;
+        for (int i = 0; i < inAbilityButton.length; i++)
+        {
+            if (i < abs.length)
+            {
+                inAbilityID[i] = abs[i];
+                inAbilityButton[i].setBackground(backs[i]);
+                inAbilityButton[i].setVisible(true);
+            }
+            else
+            {
+                inAbilityButton[i].setVisible(false);
+            }
+        }
+    }
+
+    private void onAbilityUsed(String id)
+    {
+        presenter.onAbilityUsed(id);
+
     }
 
     private void onExit()

@@ -1,5 +1,6 @@
 package game.mvp;
 
+import javafx.scene.layout.Background;
 import model.Model;
 import mvp.MainPresenter;
 import mvp.Presenter;
@@ -20,6 +21,25 @@ public class GamePresenter extends Presenter<GameView>
         view.addGameMenuButton("Soldier", null);
         for (int i = 0; i < 10; i++)
             view.addGameMenuButton("House" + i, null);
+        Background[] bs = new Background[8];
+        bs[0] = model.getAsBackground("ABILITY_A");
+        bs[1] = model.getAsBackground("TEST");
+        bs[2] = model.getAsBackground("TEST");
+        bs[3] = model.getAsBackground("TEST");
+        bs[4] = model.getAsBackground("ABILITY_A");
+        bs[5] = model.getAsBackground("TEST");
+        bs[6] = model.getAsBackground("TEST");
+        bs[7] = model.getAsBackground("TEST");
+        String[] ns = new String[8];
+        ns[0] = "Hunt";
+        ns[1] = "Move";
+        ns[2] = "Attack";
+        ns[3] = "Jump";
+        ns[4] = "Hunt";
+        ns[5] = "Move";
+        ns[6] = "Attack";
+        ns[7] = "Jump";
+        view.showAbbilties(ns, bs);
     }
 
     @Override
@@ -42,13 +62,22 @@ public class GamePresenter extends Presenter<GameView>
             case "Soldier":
                 System.out.println("Soldat ausbilden");
                 break;
-
         }
     }
 
     public void onExit()
     {
         mainPresenter.choosePresenter("menü-main");
+    }
+
+    public void onAbilityUsed(String id)
+    {
+        switch (id)
+        {
+            case "build":
+                break;
+        }
+
     }
 
 }
