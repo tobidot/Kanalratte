@@ -168,9 +168,11 @@ public class GameView extends View<HBox, GamePresenter>
         {
             final int index = i;
             Button b;
-            abilityButton[index] = new UsableButton(null, null, null);
+            abilityButton[index] = new UsableButton(null, null, null, null);
+            abilityButton[index].deactivate();
             statusInfo.add(b = new Button(), 3 + i % (abilitiesCount / 2), i / (abilitiesCount / 2));
             b.visibleProperty().bind(abilityButton[index].getActive());
+            b.backgroundProperty().bind(abilityButton[index].getBackground());
             b.prefWidthProperty().bind(w);
             b.maxWidthProperty().bind(w);
             b.prefHeightProperty().bind(w);
@@ -245,10 +247,15 @@ public class GameView extends View<HBox, GamePresenter>
         updateGameMenu();
     }
 
+    /**
+     * Eine Fähigkeit wurde benutzt
+     * 
+     * @param usableButton
+     *            Button für die Fähigkeit
+     */
     private void onGameMenuUse(UsableButton usableButton)
     {
-        // TODO Auto-generated method stub
-
+        usableButton.use();
     }
 
     /**

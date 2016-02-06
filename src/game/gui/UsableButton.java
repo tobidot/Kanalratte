@@ -6,7 +6,11 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 public class UsableButton
 {
@@ -16,11 +20,11 @@ public class UsableButton
 
     private SimpleStringProperty description;
 
-    private SimpleObjectProperty<Background> image;
+    private SimpleObjectProperty<ButtonAnimation> animation;
 
     private SimpleBooleanProperty isActive;
 
-    public UsableButton(String name, String description, EventAction ea)
+    public UsableButton(String name, String description, ButtonAnimation anim, EventAction ea)
     {
         if (name == null)
         {
@@ -30,10 +34,15 @@ public class UsableButton
         {
             description = "";
         }
+        if (anim == null)
+        {
+            anim = new ButtonAnimation(0, null);
+        }
         onClickAction = ea;
         isActive = new SimpleBooleanProperty(true);
         this.name = new SimpleStringProperty(name);
         this.description = new SimpleStringProperty(description);
+        this.animation = new SimpleObjectProperty<ButtonAnimation>(anim);
     }
 
     public void bind(UsableButton b)
@@ -41,8 +50,8 @@ public class UsableButton
         onClickAction = b.onClickAction;
         name.bind(b.name);
         description.bind(b.description);
-        image.bind(b.image);
-        isActive.bind(b.isActive);
+        animation.bind(b.animation);
+        // isActive.bind(b.isActive);
     }
 
     public ReadOnlyStringProperty getName()
@@ -57,7 +66,7 @@ public class UsableButton
 
     public ReadOnlyObjectProperty<Background> getBackground()
     {
-        return image;
+        return animation.get().currentImage();
     }
 
     public ReadOnlyBooleanProperty getActive()
@@ -73,14 +82,20 @@ public class UsableButton
         }
     }
 
+    /**
+     * sets the visability of this Button to true
+     */
     public void activate()
     {
         isActive.set(true);
     }
 
+    /**
+     * sets the visability of this Button to false
+     */
     public void deactivate()
     {
-        isActive.set(true);
+        isActive.set(false);
     }
 
 }

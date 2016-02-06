@@ -20,8 +20,7 @@ public class GamePresenter extends Presenter<GameView>
         super(mainPresenter, model, new GameView());
         for (int i = 0; i < 10; i++)
         {
-            UsableButton b = new UsableButton("Name" + i, "Ein Button", null);
-
+            UsableButton b = new UsableButton("Name" + i, "Ein Button", null, null);
             view.addGameMenuButton(b);
         }
         Background[] bs = new Background[8];
@@ -42,7 +41,7 @@ public class GamePresenter extends Presenter<GameView>
         ns[5] = "Move";
         ns[6] = "Attack";
         ns[7] = "Jump";
-        view.showAbbilties(new UsableButton("A", "Eine Option", null));
+        view.showAbbilties(new UsableButton("A", "Eine Option", null, null));
     }
 
     @Override
