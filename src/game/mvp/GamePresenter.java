@@ -1,5 +1,6 @@
 package game.mvp;
 
+import game.gui.UsableButton;
 import javafx.scene.layout.Background;
 import model.Model;
 import mvp.MainPresenter;
@@ -17,10 +18,12 @@ public class GamePresenter extends Presenter<GameView>
     public GamePresenter(MainPresenter mainPresenter, Model model)
     {
         super(mainPresenter, model, new GameView());
-        view.addGameMenuButton("Feed", model.getAsBackground("TEST"));
-        view.addGameMenuButton("Soldier", null);
         for (int i = 0; i < 10; i++)
-            view.addGameMenuButton("House" + i, null);
+        {
+            UsableButton b = new UsableButton("Name" + i, "Ein Button", null);
+
+            view.addGameMenuButton(b);
+        }
         Background[] bs = new Background[8];
         bs[0] = model.getAsBackground("ABILITY_A");
         bs[1] = model.getAsBackground("TEST");
@@ -39,7 +42,7 @@ public class GamePresenter extends Presenter<GameView>
         ns[5] = "Move";
         ns[6] = "Attack";
         ns[7] = "Jump";
-        view.showAbbilties(ns, bs);
+        view.showAbbilties(new UsableButton("A", "Eine Option", null));
     }
 
     @Override

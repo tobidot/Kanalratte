@@ -2,11 +2,10 @@ package game.mvp;
 
 import java.util.ArrayList;
 
+import game.gui.UsableButton;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -39,9 +38,11 @@ public class GameView extends View<HBox, GamePresenter>
 
     private int pageIndex;
 
-    private ArrayList<Button> gameMenuButton;
-
-    private ArrayList<String> gameMenuButtonID;
+    private ArrayList<UsableButton> menueButton = new ArrayList<UsableButton>();
+    //
+    // private ArrayList<Button> gameMenuButton;
+    //
+    // private ArrayList<String> gameMenuButtonID;
 
     private StackPane selectInfoProfile;
 
@@ -51,16 +52,14 @@ public class GameView extends View<HBox, GamePresenter>
 
     private final int abilitiesCount = 12;
 
-    private String inAbilityID[] = new String[abilitiesCount];
+    // private String inAbilityID[] = new String[abilitiesCount];
+    //
+    // private Button[] inAbilityButton = new Button[abilitiesCount];
 
-    private Button[] inAbilityButton = new Button[abilitiesCount];
+    private UsableButton[] abilityButton = new UsableButton[abilitiesCount];
 
     public GameView()
     {
-
-        gameMenuButton = new ArrayList<Button>();
-        gameMenuButtonID = new ArrayList<String>();
-
         VBox left;
         root = new HBox();
         /// main Layout
@@ -169,8 +168,9 @@ public class GameView extends View<HBox, GamePresenter>
         {
             final int index = i;
             Button b;
-            statusInfo.add(b = inAbilityButton[i] = new Button("" + i), 3 + i % (abilitiesCount / 2), i / (abilitiesCount / 2));
-            b.setVisible(false);
+            abilityButton[index] = new UsableButton(null, null, null);
+            statusInfo.add(b = new Button(), 3 + i % (abilitiesCount / 2), i / (abilitiesCount / 2));
+            b.visibleProperty().bind(abilityButton[index].getActive());
             b.prefWidthProperty().bind(w);
             b.maxWidthProperty().bind(w);
             b.prefHeightProperty().bind(w);
@@ -179,35 +179,31 @@ public class GameView extends View<HBox, GamePresenter>
                 GridPane.setMargin(b, new Insets(n.doubleValue() * 0.06 / (abilitiesCount / 2)));
             });
             b.setOnAction(e -> {
-                onAbilityUsed(inAbilityID[index]);
+                abilityUse(abilityButton[index]);
             });
         }
         // TODO
     }
 
-    public void showAbbilties(String abs[], Background backs[])
+    private void abilityUse(UsableButton usableButton)
     {
-        if (abs.length != backs.length)
-            return;
-        for (int i = 0; i < inAbilityButton.length; i++)
+        usableButton.use();
+    }
+
+    public void showAbbilties(UsableButton... abilities)
+    {
+        for (int i = 0; i < abilitiesCount; i++)
         {
-            if (i < abs.length)
+            if (i < abilities.length)
             {
-                inAbilityID[i] = abs[i];
-                inAbilityButton[i].setBackground(backs[i]);
-                inAbilityButton[i].setVisible(true);
+                abilityButton[i].bind(abilities[i]);
+                abilityButton[i].activate();
             }
             else
             {
-                inAbilityButton[i].setVisible(false);
+                abilityButton[i].deactivate();
             }
         }
-    }
-
-    private void onAbilityUsed(String id)
-    {
-        presenter.onAbilityUsed(id);
-
     }
 
     private void onExit()
@@ -222,9 +218,9 @@ public class GameView extends View<HBox, GamePresenter>
      * @param cap
      *            Beschreibung des Buttons
      */
-    public void addGameMenuButton(String nameID, Background back)
+    public void addGameMenuButton(UsableButton option)
     {
-        final int index = gameMenuButton.size();
+        final int index = menueButton.size();
         Button b = new Button();
         GridPane.setFillWidth(b, false);
         GridPane.setFillHeight(b, false);
@@ -233,44 +229,42 @@ public class GameView extends View<HBox, GamePresenter>
         b.setMaxHeight(Integer.MAX_VALUE);
         b.setMaxWidth(Integer.MAX_VALUE);
         b.setOnAction(e -> {
-            onGameMenuOption(gameMenuButtonID.get(index));
+            onGameMenuUse(menueButton.get(index));
         });
-        if (back != null)
-        {
-            b.setBackground(back);
-        }
-        else
-        {
-            b.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(0), new Insets(0))));
-        }
-        if (gameMenuButton.size() - pageIndex * 8 < 8)
+        b.backgroundProperty().bind(option.getBackground());
+        if (index - pageIndex * 8 < 8)
         { /// TODO wenn < 0 bei remove beachten
-            gameMenu.add(b, (gameMenuButton.size() - pageIndex * 8) % 2, (gameMenuButton.size() - pageIndex * 8) / 2 + 1);
+            gameMenu.add(b, (index - pageIndex * 8) % 2, (index - pageIndex * 8) / 2 + 1);
         }
         else
         {
-            GridPane.setColumnIndex(b, gameMenuButton.size() % 2);
-            GridPane.setRowIndex(b, (gameMenuButton.size() / 2) % 4 + 1);
+            GridPane.setColumnIndex(b, index % 2);
+            GridPane.setRowIndex(b, (index / 2) % 4 + 1);
         }
-        gameMenuButton.add(b);
-        gameMenuButtonID.add(nameID);
+        menueButton.add(option);
         updateGameMenu();
     }
 
+    private void onGameMenuUse(UsableButton usableButton)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
     /**
+     * entfernt den Menue-Button mit dem Namen
      * 
      */
     public void removeGameAuswahlButton(String nameID)
     {
-        final int index = gameMenuButtonID.indexOf(nameID);
-        gameMenuButton.remove(index);
-        gameMenuButtonID.remove(index);
+        for (int i = 0; i < menueButton.size(); i++)
+        {
+            if (menueButton.get(i).getName().equals(nameID))
+            {
+                menueButton.remove(i);
+            }
+        }
         updateGameMenu();
-    }
-
-    private void onGameMenuOption(String nameID)
-    {
-        presenter.onInGameOption(nameID);
     }
 
     protected void setImages(Model model)
@@ -292,27 +286,7 @@ public class GameView extends View<HBox, GamePresenter>
 
     private void updateGameMenu()
     {
-        for (int i = 0; i < 8; i++)
-        {
-            try
-            {
-                if (i + pageIndex * 8 < gameMenuButton.size())
-                {
-                    gameMenu.getChildren().set(i + 4, gameMenuButton.get(i + pageIndex * 8));
-                    gameMenu.getChildren().get(i + 4).setVisible(true);
-                }
-                else
-                {
-                    gameMenu.getChildren().get(i + 4).setVisible(false);
-                }
-            }
-            catch (IndexOutOfBoundsException e)
-            {
-
-            }
-        }
-
-        if (gameMenuButton.size() > (pageIndex + 1) * 8)
+        if (menueButton.size() > (pageIndex + 1) * 8)
         {
             moreRight.setDisable(false);
         }
