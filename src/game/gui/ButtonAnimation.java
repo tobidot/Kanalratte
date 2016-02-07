@@ -30,13 +30,11 @@ public class ButtonAnimation
 
     private Frame[] timeline;
 
-    private long loopTime;
-
     private int currentFrame;
 
     private long lastChange;
 
-    public ButtonAnimation(long loop, Frame... frames)
+    public ButtonAnimation(Frame... frames)
     {
         if (frames == null || frames.length == 0)
         {
@@ -46,9 +44,7 @@ public class ButtonAnimation
             // 2500000000l);
             // 2,5 Sekunde?
             frames[0] = new Frame(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(0), new Insets(0))), 2500000000l);
-            loop = 2500000000l;
         }
-        loopTime = loop;
         timeline = frames;
         currentImg = new SimpleObjectProperty<Background>(frames[0].image);
         currentFrame = 0;

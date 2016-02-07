@@ -1,8 +1,15 @@
 package asset;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.CharBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import game.gui.ButtonAnimation;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -19,7 +26,7 @@ public class AssetManager
 
         protected Object resource;
 
-        ResourceType(String p)
+        public ResourceType(String p)
         {
             path = p;
             resource = null;
@@ -38,8 +45,7 @@ public class AssetManager
 
     public static class ImageResource extends ResourceType
     {
-
-        ImageResource(String p)
+        public ImageResource(String p)
         {
             super(p);
             resource = new Image(path);
@@ -74,6 +80,8 @@ public class AssetManager
         resources.put("ABILITY_B", new ImageResource("file:bilder/Abbility_Move.png"));
         resources.put("ABILITY_C", new ImageResource("file:bilder/Abbility_Attack.png"));
         resources.put("ABILITY_D", new ImageResource("file:bilder/Abbility_Attack.png"));
+
+        resources.put("ANIMATION_TEST", new ButtonAnimationResource("animationen/button/test.ani"));
     }
 
     public String getResourcePath(String key)
@@ -116,6 +124,23 @@ public class AssetManager
         else
         {
             return ((ImageResource) rt).getImage();
+        }
+    }
+
+    public ButtonAnimation getButtonAnimation(String key)
+    {
+        ResourceType rt = resources.get(key);
+        if (rt == null)
+        {
+            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
+        }
+        else if (rt instanceof ButtonAnimationResource == false)
+        {
+            throw new NoSuchElementException("Resource : '" + key + "' ist keine Button-Animation");
+        }
+        else
+        {
+            return ((ButtonAnimationResource) rt).getButtonAnimation();
         }
     }
 

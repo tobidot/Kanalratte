@@ -2,6 +2,7 @@ package game.mvp;
 
 import java.util.ArrayList;
 
+import game.gui.ButtonWrapper;
 import game.gui.UsableButton;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
@@ -39,10 +40,6 @@ public class GameView extends View<HBox, GamePresenter>
     private int pageIndex;
 
     private ArrayList<UsableButton> menueButton = new ArrayList<UsableButton>();
-    //
-    // private ArrayList<Button> gameMenuButton;
-    //
-    // private ArrayList<String> gameMenuButtonID;
 
     private StackPane selectInfoProfile;
 
@@ -51,10 +48,6 @@ public class GameView extends View<HBox, GamePresenter>
     private StackPane selectInfoMana;
 
     private final int abilitiesCount = 12;
-
-    // private String inAbilityID[] = new String[abilitiesCount];
-    //
-    // private Button[] inAbilityButton = new Button[abilitiesCount];
 
     private UsableButton[] abilityButton = new UsableButton[abilitiesCount];
 
@@ -168,10 +161,10 @@ public class GameView extends View<HBox, GamePresenter>
         {
             final int index = i;
             Button b;
-            abilityButton[index] = new UsableButton(null, null, null, null);
+            abilityButton[index] = new UsableButton();
             abilityButton[index].deactivate();
             statusInfo.add(b = new Button(), 3 + i % (abilitiesCount / 2), i / (abilitiesCount / 2));
-            b.visibleProperty().bind(abilityButton[index].getActive());
+            b.visibleProperty().bind(abilityButton[index].isActive());
             b.backgroundProperty().bind(abilityButton[index].getBackground());
             b.prefWidthProperty().bind(w);
             b.maxWidthProperty().bind(w);
@@ -187,18 +180,18 @@ public class GameView extends View<HBox, GamePresenter>
         // TODO
     }
 
-    private void abilityUse(UsableButton usableButton)
+    private void abilityUse(UsableButton abilityButton2)
     {
-        usableButton.use();
+        abilityButton2.use();
     }
 
-    public void showAbbilties(UsableButton... abilities)
+    public void showAbbilties(ButtonWrapper... abilities)
     {
         for (int i = 0; i < abilitiesCount; i++)
         {
             if (i < abilities.length)
             {
-                abilityButton[i].bind(abilities[i]);
+                abilityButton[i].linkTo(abilities[i]);
                 abilityButton[i].activate();
             }
             else

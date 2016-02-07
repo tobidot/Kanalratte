@@ -6,79 +6,51 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 
 public class UsableButton
 {
-    private EventAction onClickAction;
+    private SimpleObjectProperty<EventAction> onClickAction;
 
     private SimpleStringProperty name;
 
     private SimpleStringProperty description;
 
-    private SimpleObjectProperty<ButtonAnimation> animation;
+    private SimpleObjectProperty<Background> currentImage;
 
     private SimpleBooleanProperty isActive;
 
-    public UsableButton(String name, String description, ButtonAnimation anim, EventAction ea)
+    public UsableButton(String name, String desc, Background back)
     {
-        if (name == null)
-        {
-            name = "";
-        }
-        if (description == null)
-        {
-            description = "";
-        }
-        if (anim == null)
-        {
-            anim = new ButtonAnimation(0, null);
-        }
-        onClickAction = ea;
+        onClickAction = null;
         isActive = new SimpleBooleanProperty(true);
         this.name = new SimpleStringProperty(name);
-        this.description = new SimpleStringProperty(description);
-        this.animation = new SimpleObjectProperty<ButtonAnimation>(anim);
+        this.description = new SimpleStringProperty(desc);
+        this.currentImage = new SimpleObjectProperty<Background>(back);
     }
 
-    public void bind(UsableButton b)
+    public UsableButton()
     {
-        onClickAction = b.onClickAction;
-        name.bind(b.name);
-        description.bind(b.description);
-        animation.bind(b.animation);
-        // isActive.bind(b.isActive);
+        onClickAction = new SimpleObjectProperty<EventAction>();
+        isActive = new SimpleBooleanProperty(true);
+        this.name = new SimpleStringProperty("");
+        this.description = new SimpleStringProperty("");
+        this.currentImage = new SimpleObjectProperty<Background>();
     }
 
-    public ReadOnlyStringProperty getName()
+    public void linkTo(ButtonWrapper b)
     {
-        return name;
-    }
-
-    public ReadOnlyStringProperty getDescription()
-    {
-        return description;
-    }
-
-    public ReadOnlyObjectProperty<Background> getBackground()
-    {
-        return animation.get().currentImage();
-    }
-
-    public ReadOnlyBooleanProperty getActive()
-    {
-        return isActive;
+        onClickAction.bind(b.getTrigger());
+        name.bind(b.getName());
+        description.bind(b.getDescription());
+        currentImage.bind(b.getBackground());
     }
 
     public void use()
     {
-        if (onClickAction != null)
+        if (onClickAction != null && onClickAction.get() != null)
         {
-            onClickAction.trigger();
+            onClickAction.get().trigger();
         }
     }
 
@@ -98,4 +70,23 @@ public class UsableButton
         isActive.set(false);
     }
 
+    public ReadOnlyBooleanProperty isActive()
+    {
+        return isActive;
+    }
+
+    public ReadOnlyStringProperty getName()
+    {
+        return name;
+    }
+
+    public ReadOnlyStringProperty getDescription()
+    {
+        return description;
+    }
+
+    public ReadOnlyObjectProperty<Background> getBackground()
+    {
+        return currentImage;
+    }
 }

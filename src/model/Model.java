@@ -2,6 +2,7 @@ package model;
 
 import asset.AssetManager;
 import asset.AssetManager.ImageResource;
+import game.gui.ButtonAnimation;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -44,7 +45,11 @@ public class Model
 
     public void bindStageResolution(Stage stage)
     {
-
         stage.setWidth(0);
+    }
+
+    public ButtonAnimation getButtonAnimation(String key)
+    {
+        return assets.getButtonAnimation(key);
     }
 }

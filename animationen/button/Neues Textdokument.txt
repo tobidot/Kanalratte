@@ -1,0 +1,3 @@
+file:bilder/A.png : 0.5
+file:bilder/B.png : 0.5
+file:bilder/C.png : 0.5
