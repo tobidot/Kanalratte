@@ -1,7 +1,6 @@
 package asset;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import asset.AssetManager.ImageResource;
 import asset.AssetManager.ResourceType;
 import game.gui.ButtonAnimation;
-import javafx.scene.layout.Background;
 
 public class ButtonAnimationResource extends ResourceType
 {

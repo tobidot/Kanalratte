@@ -12,6 +12,7 @@ public abstract class Presenter<T extends View>
 
     protected MainPresenter mainPresenter;
 
+    @SuppressWarnings("unchecked")
     public Presenter(MainPresenter mainPresenter, Model model, T view)
     {
         this.model = model;

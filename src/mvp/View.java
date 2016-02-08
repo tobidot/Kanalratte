@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Model;
 
+@SuppressWarnings("rawtypes")
 public abstract class View<T extends Pane, R extends Presenter>
 {
     protected T root;

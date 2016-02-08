@@ -4,7 +4,6 @@ import javafx.scene.paint.ImagePattern;
 import menues.base.MenuBasePresenter;
 import model.Model;
 import mvp.MainPresenter;
-import mvp.Presenter;
 
 public class MainMenuPresenter extends MenuBasePresenter
 {

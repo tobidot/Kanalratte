@@ -1,7 +1,6 @@
 package mvp;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;

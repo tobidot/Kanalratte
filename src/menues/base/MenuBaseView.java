@@ -1,26 +1,19 @@
 package menues.base;
 
-import javax.swing.GroupLayout.Alignment;
-
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import model.Model;
-import mvp.Presenter;
 import mvp.View;
 
 public class MenuBaseView extends View<Pane, MenuBasePresenter>

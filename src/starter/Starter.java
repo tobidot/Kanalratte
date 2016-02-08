@@ -1,16 +1,11 @@
 package starter;
 
-import com.sun.scenario.animation.AnimationPulse;
-
 import game.mvp.GamePresenter;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import loadscreen.LoadingScreenPresenter;
 import menues.einstellungen.MenuEinstellungenPresenter;
 import menues.main.MainMenuPresenter;
 import model.Model;
@@ -18,8 +13,6 @@ import mvp.MainPresenter;
 
 public class Starter extends Application
 {
-
-    private long started;
 
     public static void main(String[] args)
     {

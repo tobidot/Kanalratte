@@ -1,7 +1,6 @@
 package model;
 
 import asset.AssetManager;
-import asset.AssetManager.ImageResource;
 import game.gui.ButtonAnimation;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -15,12 +14,9 @@ public class Model
 {
     private AssetManager assets;
 
-    private ScreenProperty screen;
-
     public Model()
     {
         assets = new AssetManager();
-        screen = new ScreenProperty(800, 600);
     }
 
     public String getResourcePath(String key)

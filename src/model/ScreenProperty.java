@@ -1,10 +1,7 @@
 package model;
 
-import java.util.Properties;
-
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.stage.Stage;
 
 public class ScreenProperty
 {
