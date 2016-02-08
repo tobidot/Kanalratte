@@ -32,7 +32,6 @@ public class ButtonAnimationResource extends ResourceType
                 time = line.substring(line.indexOf(',') + 1);
                 ImageResource imgRes = new ImageResource(path);
                 frames.add(new ButtonAnimation.Frame(imgRes.getAsBackGround(), (long) (Double.valueOf(time) * 1000000000l)));
-                System.out.println("Bild " + path + " für " + time + " sekunden");
             }
             ButtonAnimation.Frame[] fa = new ButtonAnimation.Frame[frames.size()];
             resource = new ButtonAnimation(frames.toArray(fa));

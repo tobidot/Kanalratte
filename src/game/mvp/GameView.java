@@ -6,6 +6,7 @@ import game.gui.ButtonWrapper;
 import game.gui.UsableButton;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -39,7 +40,11 @@ public class GameView extends View<HBox, GamePresenter>
 
     private int pageIndex;
 
-    private ArrayList<UsableButton> menueButton = new ArrayList<UsableButton>();
+    private final int menueButtonCount = 12;
+
+    private UsableButton[] menueButton = new UsableButton[menueButtonCount];
+
+    private ArrayList<ButtonWrapper> menueButtonData = new ArrayList<ButtonWrapper>();
 
     private StackPane selectInfoProfile;
 
@@ -96,6 +101,28 @@ public class GameView extends View<HBox, GamePresenter>
             r.prefHeightProperty().bind(perc10);
             r.minHeightProperty().bind(perc10);
             r.setFillHeight(false);
+
+            for (int j = 0; j < 3; j++)
+            {
+                final int index = i * 3 + j;
+                Button b = new Button();
+                menueButton[index] = new UsableButton();
+                GridPane.setFillWidth(b, false);
+                GridPane.setFillHeight(b, false);
+                b.prefHeightProperty().bind(this.getResolutionHeight().multiply(0.09));
+                b.prefWidthProperty().bind(this.getResolutionWidth().multiply(0.083));
+                b.maxHeightProperty().bind(b.prefHeightProperty());
+                b.maxWidthProperty().bind(b.prefWidthProperty());
+                b.minHeightProperty().bind(b.prefHeightProperty());
+                b.minWidthProperty().bind(b.prefWidthProperty());
+                b.setOnAction(e -> {
+                    onGameMenuUse(menueButton[index]);
+                });
+                b.backgroundProperty().bind(menueButton[index].getBackground());
+                b.visibleProperty().bind(menueButton[index].isActive());
+                menueButton[index].deactivate();
+                gameMenu.add(b, j, i + 1);
+            }
         }
         rows.add(r = new RowConstraints());
         r.maxHeightProperty().bind(perc5);
@@ -108,28 +135,30 @@ public class GameView extends View<HBox, GamePresenter>
 
         /// Buttons add
         Button b;
-        gameMenu.add(b = exitButton = new Button(), 0, 0, 2, 1);
+        gameMenu.add(b = exitButton = new Button(), 0, 0, 3, 1);
         exitButton.setPrefHeight(Integer.MAX_VALUE);
         exitButton.setPrefWidth(Integer.MAX_VALUE);
         exitButton.setMaxHeight(Integer.MAX_VALUE);
         exitButton.setOnAction(e -> {
             onExit();
         });
-        gameMenu.add(b = moreLeft = new Button(), 0, 5);
+        gameMenu.add(b = moreLeft = new Button(), 0, 5, 2, 1);
         b.setPrefHeight(Integer.MAX_VALUE);
-        b.setPrefWidth(Integer.MAX_VALUE);
+        b.prefWidthProperty().bind(this.getResolutionWidth().multiply(0.13));
         b.setMaxHeight(Integer.MAX_VALUE);
+        GridPane.setHalignment(b, HPos.LEFT);
         b.setOnAction(e -> {
             gameMenuMoreLeft();
         });
-        gameMenu.add(b = moreRight = new Button(), 1, 5);
+        gameMenu.add(b = moreRight = new Button(), 1, 5, 2, 1);
         b.setPrefHeight(Integer.MAX_VALUE);
-        b.setPrefWidth(Integer.MAX_VALUE);
+        b.prefWidthProperty().bind(this.getResolutionWidth().multiply(0.13));
         b.setMaxHeight(Integer.MAX_VALUE);
+        GridPane.setHalignment(b, HPos.RIGHT);
         b.setOnAction(e -> {
             gameMenuMoreRight();
         });
-        gameMenu.add(b = menuInfo = new Button(), 0, 6, 2, 1);
+        gameMenu.add(b = menuInfo = new Button(), 0, 6, 3, 1);
         b.setPrefHeight(Integer.MAX_VALUE);
         b.setPrefWidth(Integer.MAX_VALUE);
         b.setMaxHeight(Integer.MAX_VALUE);
@@ -177,7 +206,6 @@ public class GameView extends View<HBox, GamePresenter>
                 abilityUse(abilityButton[index]);
             });
         }
-        // TODO
     }
 
     private void abilityUse(UsableButton abilityButton2)
@@ -213,30 +241,9 @@ public class GameView extends View<HBox, GamePresenter>
      * @param cap
      *            Beschreibung des Buttons
      */
-    public void addGameMenuButton(UsableButton option)
+    public void addGameMenuButton(ButtonWrapper option)
     {
-        final int index = menueButton.size();
-        Button b = new Button();
-        GridPane.setFillWidth(b, false);
-        GridPane.setFillHeight(b, false);
-        b.prefHeightProperty().bind(this.getResolutionHeight().multiply(0.09));
-        b.prefWidthProperty().bind(this.getResolutionWidth().multiply(0.12));
-        b.setMaxHeight(Integer.MAX_VALUE);
-        b.setMaxWidth(Integer.MAX_VALUE);
-        b.setOnAction(e -> {
-            onGameMenuUse(menueButton.get(index));
-        });
-        b.backgroundProperty().bind(option.getBackground());
-        if (index - pageIndex * 8 < 8)
-        { /// TODO wenn < 0 bei remove beachten
-            gameMenu.add(b, (index - pageIndex * 8) % 2, (index - pageIndex * 8) / 2 + 1);
-        }
-        else
-        {
-            GridPane.setColumnIndex(b, index % 2);
-            GridPane.setRowIndex(b, (index / 2) % 4 + 1);
-        }
-        menueButton.add(option);
+        menueButtonData.add(option);
         updateGameMenu();
     }
 
@@ -257,11 +264,11 @@ public class GameView extends View<HBox, GamePresenter>
      */
     public void removeGameAuswahlButton(String nameID)
     {
-        for (int i = 0; i < menueButton.size(); i++)
+        for (int i = 0; i < menueButtonData.size(); i++)
         {
-            if (menueButton.get(i).getName().equals(nameID))
+            if (menueButtonData.get(i).getName().equals(nameID))
             {
-                menueButton.remove(i);
+                menueButtonData.remove(i);
             }
         }
         updateGameMenu();
@@ -286,7 +293,19 @@ public class GameView extends View<HBox, GamePresenter>
 
     private void updateGameMenu()
     {
-        if (menueButton.size() > (pageIndex + 1) * 8)
+        for (int i = (pageIndex) * menueButtonCount; i < (pageIndex + 1) * menueButtonCount; i++)
+        {
+            if (i < menueButtonData.size())
+            {
+                menueButton[i - (pageIndex) * menueButtonCount].linkTo(menueButtonData.get(i));
+                menueButton[i - (pageIndex) * menueButtonCount].activate();
+            }
+            else
+            {
+                menueButton[i - (pageIndex) * menueButtonCount].deactivate();
+            }
+        }
+        if (menueButtonData.size() > (pageIndex + 1) * menueButtonCount)
         {
             moreRight.setDisable(false);
         }

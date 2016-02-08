@@ -1,7 +1,6 @@
 package game.mvp;
 
 import game.gui.ButtonWrapper;
-import game.gui.UsableButton;
 import javafx.scene.layout.Background;
 import model.Model;
 import mvp.MainPresenter;
@@ -19,9 +18,9 @@ public class GamePresenter extends Presenter<GameView>
     public GamePresenter(MainPresenter mainPresenter, Model model)
     {
         super(mainPresenter, model, new GameView());
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 19; i++)
         {
-            UsableButton b = new UsableButton("Name" + i, "Ein Button", model.getAsBackground("TEST"));
+            ButtonWrapper b = new ButtonWrapper("Name" + i, "Ein Button", model.getAsBackground("TEST"), null);
             view.addGameMenuButton(b);
         }
         Background[] bs = new Background[8];
