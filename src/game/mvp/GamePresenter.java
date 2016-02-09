@@ -1,7 +1,11 @@
 package game.mvp;
 
+import com.sun.javafx.font.directwrite.RECT;
+
 import game.gui.ButtonWrapper;
 import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import model.Model;
 import mvp.MainPresenter;
 import mvp.Presenter;
@@ -42,6 +46,12 @@ public class GamePresenter extends Presenter<GameView>
         ns[6] = "Attack";
         ns[7] = "Jump";
         view.showAbbilties(new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), null));
+
+        Rectangle rect;
+        view.addObjectInGame(rect = new Rectangle());
+        rect.setWidth(10);
+        rect.setHeight(10);
+        rect.setFill(Color.CHOCOLATE);
     }
 
     @Override

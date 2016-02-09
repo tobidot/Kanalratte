@@ -8,6 +8,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -19,6 +20,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import model.Model;
 import mvp.View;
 
@@ -169,6 +171,8 @@ public class GameView extends View<HBox, GamePresenter>
         gameScreen.prefHeightProperty().bind(getResolutionHeight().multiply(0.75));
         statusInfo.prefHeightProperty().bind(getResolutionHeight().multiply(0.25));
 
+        gameWorldLayout();
+
         RowConstraints r;
         statusInfo.getRowConstraints().add(r = new RowConstraints());
         r.setPercentHeight(50);
@@ -206,6 +210,14 @@ public class GameView extends View<HBox, GamePresenter>
                 abilityUse(abilityButton[index]);
             });
         }
+    }
+
+    private void gameWorldLayout()
+    {
+        Rectangle rect = new Rectangle(0, 0);
+        gameScreen.setClip(rect);
+        rect.widthProperty().bind(getResolutionWidth().multiply(0.75));
+        rect.heightProperty().bind(getResolutionHeight().multiply(0.75));
     }
 
     private void abilityUse(UsableButton abilityButton2)
@@ -333,5 +345,10 @@ public class GameView extends View<HBox, GamePresenter>
     {
         pageIndex++;
         updateGameMenu();
+    }
+
+    public void addObjectInGame(Node object)
+    {
+        gameScreen.getChildren().add(object);
     }
 }

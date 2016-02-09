@@ -48,4 +48,9 @@ public class Model
     {
         return assets.getButtonAnimation(key);
     }
+
+    public void gameStart()
+    {
+
+    }
 }
