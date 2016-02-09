@@ -2,6 +2,8 @@ package mvp;
 
 import java.util.HashMap;
 
+import game.mvp.GamePresenter;
+import game.objects.GameObjectTest;
 import javafx.animation.AnimationTimer;
 import javafx.stage.Stage;
 import loadscreen.LoadingScreenPresenter;
@@ -94,6 +96,15 @@ public class MainPresenter extends Presenter<MainView>
     public void deactivateInGameWindow()
     {
         // TODO Auto-generated method stub
+
+    }
+
+    public void addGameWorldObject(GameObjectTest object)
+    {
+        if (currentPresenter instanceof GamePresenter)
+        {
+            ((GamePresenter) currentPresenter).addGameWorldObject(object);
+        }
 
     }
 }

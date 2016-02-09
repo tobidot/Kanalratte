@@ -3,6 +3,8 @@ package game.mvp;
 import com.sun.javafx.font.directwrite.RECT;
 
 import game.gui.ButtonWrapper;
+import game.gui.EventAction;
+import game.objects.GameObjectTest;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -45,19 +47,33 @@ public class GamePresenter extends Presenter<GameView>
         ns[5] = "Move";
         ns[6] = "Attack";
         ns[7] = "Jump";
-        view.showAbbilties(new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), null));
 
-        Rectangle rect;
-        view.addObjectInGame(rect = new Rectangle());
-        rect.setWidth(10);
-        rect.setHeight(10);
-        rect.setFill(Color.CHOCOLATE);
+        ButtonWrapper[] abilities = new ButtonWrapper[2];
+        abilities[0] = new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), new EventAction()
+        {
+            @Override
+            public void trigger()
+            {
+                speed += 0.1;
+            }
+        });
+        abilities[1] = new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), new EventAction()
+        {
+            @Override
+            public void trigger()
+            {
+                speed -= 0.1;
+            }
+        });
+        view.showAbbilties(abilities);
+
     }
 
     @Override
     public void show()
     {
         mainPresenter.activateInGameWindow();
+        model.gameStart(this);
     }
 
     @Override
@@ -90,6 +106,26 @@ public class GamePresenter extends Presenter<GameView>
                 break;
         }
 
+    }
+
+    public void addGameWorldObject(GameObjectTest object)
+    {
+        view.addObjectInGame(object.getVisual());
+
+    }
+
+    private GameObjectTest object = null;
+
+    private double speed = 0.01;
+
+    public void gameMainLoop()
+    {
+        if (object == null)
+        {
+            object = new GameObjectTest();
+            addGameWorldObject(object);
+        }
+        object.getVisual().setLayoutX(object.getVisual().getLayoutX() + speed);
     }
 
 }

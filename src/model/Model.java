@@ -2,6 +2,10 @@ package model;
 
 import asset.AssetManager;
 import game.gui.ButtonAnimation;
+import game.mvp.GamePresenter;
+import game.objects.GameObjectTest;
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -9,6 +13,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
+import mvp.MainPresenter;
 
 public class Model
 {
@@ -49,8 +54,24 @@ public class Model
         return assets.getButtonAnimation(key);
     }
 
-    public void gameStart()
+    public void gameStart(GamePresenter presenter)
     {
+        AnimationTimer mainLoop = new AnimationTimer()
+        {
+            private long nextFrameStamp = System.nanoTime();
 
+            @Override
+            public void handle(long now)
+            {
+                if (now > nextFrameStamp)
+                {
+                    nextFrameStamp += 16000000;
+                    presenter.gameMainLoop();
+                }
+            }
+
+        };
+        mainLoop.start();
     }
+
 }
