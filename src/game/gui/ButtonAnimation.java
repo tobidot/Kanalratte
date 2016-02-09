@@ -39,10 +39,6 @@ public class ButtonAnimation
         if (frames == null || frames.length == 0)
         {
             frames = new Frame[1];
-            // frames[0] = new Frame(new Background(new
-            // BackgroundFill(Color.GREEN, new CornerRadii(0), new Insets(0))),
-            // 2500000000l);
-            // 2,5 Sekunde?
             frames[0] = new Frame(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(0), new Insets(0))), 2500000000l);
         }
         timeline = frames;

@@ -1,7 +1,5 @@
 package game.mvp;
 
-import game.gui.ButtonWrapper;
-import javafx.scene.layout.Background;
 import model.Model;
 import mvp.MainPresenter;
 import mvp.Presenter;
@@ -18,30 +16,19 @@ public class GamePresenter extends Presenter<GameView>
     public GamePresenter(MainPresenter mainPresenter, Model model)
     {
         super(mainPresenter, model, new GameView());
-        for (int i = 0; i < 19; i++)
-        {
-            ButtonWrapper b = new ButtonWrapper("Name" + i, "Ein Button", model.getAsBackground("TEST"), null);
-            view.addGameMenuButton(b);
-        }
-        Background[] bs = new Background[8];
-        bs[0] = model.getAsBackground("ABILITY_A");
-        bs[1] = model.getAsBackground("TEST");
-        bs[2] = model.getAsBackground("TEST");
-        bs[3] = model.getAsBackground("TEST");
-        bs[4] = model.getAsBackground("ABILITY_A");
-        bs[5] = model.getAsBackground("TEST");
-        bs[6] = model.getAsBackground("TEST");
-        bs[7] = model.getAsBackground("TEST");
-        String[] ns = new String[8];
-        ns[0] = "Hunt";
-        ns[1] = "Move";
-        ns[2] = "Attack";
-        ns[3] = "Jump";
-        ns[4] = "Hunt";
-        ns[5] = "Move";
-        ns[6] = "Attack";
-        ns[7] = "Jump";
-        view.showAbbilties(new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), null));
+        /// Hier im Presenter GameMenuButtons einfügen
+        /**
+         * ButtonWrapper bw = new ButtonWrapper("<identName>","<description>",model.getAsBackground("<ResourceName>"),<EventAction>);
+         * view.addGameMenuButton(bw);
+         */
+        
+        /// Und Ability-Buttons
+        /**
+         * ButtonWrapper[] bw = new ButtonWrapper[1];
+         * bw[0] = new ButtonWrapper("<identName>","<description>",model.getAsBackground("<ResourceName>"),<EventAction>);
+         * view.showAbbilties(bw);
+         */
+       
     }
 
     @Override
@@ -57,29 +44,32 @@ public class GamePresenter extends Presenter<GameView>
 
     }
 
-    public void onInGameOption(String nameID)
-    {
-        switch (nameID)
-        {
-            case "Soldier":
-                System.out.println("Soldat ausbilden");
-                break;
-        }
-    }
+//    public void onInGameOption(String nameID)
+//    {
+//        switch (nameID)
+//        {
+//        /**
+//         * case "":
+//         */
+//            case "Soldier":
+//                System.out.println("Soldat ausbilden");
+//                break;
+//        }
+//    }
 
     public void onExit()
     {
         mainPresenter.choosePresenter("menü-main");
     }
 
-    public void onAbilityUsed(String id)
-    {
-        switch (id)
-        {
-            case "build":
-                break;
-        }
-
-    }
+//    public void onAbilityUsed(String id)
+//    {
+//        switch (id)
+//        {
+//            case "build":
+//                break;
+//        }
+//
+//    }
 
 }
