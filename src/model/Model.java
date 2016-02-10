@@ -3,11 +3,15 @@ package model;
 import asset.AssetManager;
 import game.gui.ButtonAnimation;
 import game.mvp.GamePresenter;
+import game.objects.GameObject;
 import game.objects.GameObjectTest;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -19,9 +23,12 @@ public class Model
 {
     private AssetManager assets;
 
+    private GameModel gameModel;
+
     public Model()
     {
         assets = new AssetManager();
+        gameModel = new GameModel(this);
     }
 
     public String getResourcePath(String key)
@@ -72,6 +79,22 @@ public class Model
 
         };
         mainLoop.start();
+    }
+
+    public void onGameWorldUserEvent(Event event)
+    {
+        EventType<? extends Event> type = event.getEventType();
+
+        if (type.getName().equals("MouseEvent") && event instanceof MouseEvent)
+        {
+            MouseEvent me = (MouseEvent) event;
+        }
+
+    }
+
+    public GameModel getGame()
+    {
+        return gameModel;
     }
 
 }

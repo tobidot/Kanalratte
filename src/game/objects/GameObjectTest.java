@@ -1,23 +1,41 @@
 package game.objects;
 
-import javafx.scene.Node;
+import game.gui.EventAction;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GameObjectTest
+public class GameObjectTest extends GameObject
 {
-    private Rectangle visual;
+    private double speed;
 
-    public Node getVisual()
-    {
-        return visual;
-    }
+    private Rectangle visual;
 
     public GameObjectTest()
     {
-        visual = new Rectangle();
+        super.visual = this.visual = new Rectangle();
         visual.setWidth(20);
         visual.setHeight(20);
         visual.setFill(Color.BROWN);
+        speed = 0.1;
     }
+
+    @Override
+    public void calculatePhysics()
+    {
+        visual.setLayoutX(visual.getLayoutX() + speed);
+    }
+
+    public EventAction actionChangeColor(Color c)
+    {
+        return new EventAction()
+        {
+            @Override
+            public void trigger()
+            {
+                visual.setFill(c);
+
+            }
+        };
+    };
+
 }

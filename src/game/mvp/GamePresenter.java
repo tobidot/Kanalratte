@@ -4,7 +4,9 @@ import com.sun.javafx.font.directwrite.RECT;
 
 import game.gui.ButtonWrapper;
 import game.gui.EventAction;
+import game.objects.GameObject;
 import game.objects.GameObjectTest;
+import javafx.event.Event;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -48,25 +50,6 @@ public class GamePresenter extends Presenter<GameView>
         ns[6] = "Attack";
         ns[7] = "Jump";
 
-        ButtonWrapper[] abilities = new ButtonWrapper[2];
-        abilities[0] = new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), new EventAction()
-        {
-            @Override
-            public void trigger()
-            {
-                speed += 0.1;
-            }
-        });
-        abilities[1] = new ButtonWrapper("A", "Eine Option", model.getButtonAnimation("ANIMATION_TEST"), new EventAction()
-        {
-            @Override
-            public void trigger()
-            {
-                speed -= 0.1;
-            }
-        });
-        view.showAbbilties(abilities);
-
     }
 
     @Override
@@ -108,24 +91,31 @@ public class GamePresenter extends Presenter<GameView>
 
     }
 
-    public void addGameWorldObject(GameObjectTest object)
+    public void addGameWorldObject(GameObject object)
     {
         view.addObjectInGame(object.getVisual());
-
     }
 
-    private GameObjectTest object = null;
-
-    private double speed = 0.01;
+    public void onGameWorldUserEvent(Event event)
+    {
+        model.getGame().onGameWorldUserEvent(event);
+    }
 
     public void gameMainLoop()
     {
-        if (object == null)
+        if (!model.getGame().isInitiated())
         {
-            object = new GameObjectTest();
-            addGameWorldObject(object);
+            GameObject[] gos = model.getGame().init();
+            for (int i = 0; i < gos.length; i++)
+            {
+                addGameWorldObject(gos[i]);
+            }
+            view.showAbbilties(model.getGame().getCurrentAbilities());
         }
-        object.getVisual().setLayoutX(object.getVisual().getLayoutX() + speed);
+        else
+        {
+            model.getGame().calculatePhysics();
+        }
     }
 
 }

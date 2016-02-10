@@ -6,6 +6,10 @@ import game.gui.ButtonWrapper;
 import game.gui.UsableButton;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -218,6 +222,32 @@ public class GameView extends View<HBox, GamePresenter>
         gameScreen.setClip(rect);
         rect.widthProperty().bind(getResolutionWidth().multiply(0.75));
         rect.heightProperty().bind(getResolutionHeight().multiply(0.75));
+        gameScreen.setEventDispatcher(new EventDispatcher()
+        {
+            public Event dispatchEvent(Event event, EventDispatchChain tail)
+            {
+                boolean notHandledYet = true;
+                // capturing phase, can handle / modify / substitute / divert
+                // the event
+                presenter.onGameWorldUserEvent(event);
+
+                if (notHandledYet)
+                {
+                    // forward the event to the rest of the chain
+                    event = tail.dispatchEvent(event);
+
+                    if (event != null)
+                    {
+                        // bubbling phase, can handle / modify / substitute /
+                        // divert
+                        // the event
+                    }
+                }
+
+                return notHandledYet ? event : null;
+            }
+        });
+
     }
 
     private void abilityUse(UsableButton abilityButton2)
