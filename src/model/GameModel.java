@@ -32,12 +32,12 @@ public class GameModel
     {
         EventType<? extends Event> type = event.getEventType();
 
-        if (type.getName().equals("MouseEvent") && event instanceof MouseEvent)
+        if (event instanceof MouseEvent)
         {
             MouseEvent me = (MouseEvent) event;
             GameObject obj = allObjects.get(0);
-            obj.getVisual().setLayoutX(me.getX());
-            obj.getVisual().setLayoutY(me.getY());
+            obj.getVisual().setLayoutX(me.getSceneX());
+            obj.getVisual().setLayoutY(me.getSceneY());
         }
 
     }
