@@ -20,8 +20,9 @@ public class GameObjectTest extends GameObject
     }
 
     @Override
-    public void calculatePhysics()
+    public void calculatePhysics(long n)
     {
+        super.calculatePhysics(n);
         visual.setLayoutX(visual.getLayoutX() + speed);
     }
 
@@ -33,7 +34,6 @@ public class GameObjectTest extends GameObject
             public void trigger()
             {
                 visual.setFill(c);
-
             }
         };
     };

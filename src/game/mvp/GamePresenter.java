@@ -71,7 +71,7 @@ public class GamePresenter extends Presenter<GameView>
      */
     public void addGameWorldObject(GameObject object)
     {
-        view.addObjectInGame(object.getVisual());
+        view.addObjectInGame(object);
     }
 
     public void onGameWorldUserEvent(Event event)

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import game.gui.ButtonWrapper;
 import game.gui.UsableButton;
+import game.objects.GameObject;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -377,8 +378,8 @@ public class GameView extends View<HBox, GamePresenter>
         updateGameMenu();
     }
 
-    public void addObjectInGame(Node object)
+    public void addObjectInGame(GameObject object)
     {
-        gameScreen.getChildren().add(object);
+        object.addToScreen(gameScreen);
     }
 }
