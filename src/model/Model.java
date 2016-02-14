@@ -25,6 +25,8 @@ public class Model
 
     private GameModel gameModel;
 
+    private String selectedMap;
+
     public Model()
     {
         assets = new AssetManager();
@@ -63,6 +65,7 @@ public class Model
 
     public void gameStart(GamePresenter presenter)
     {
+        gameModel.loadMap(selectedMap);
         AnimationTimer mainLoop = new AnimationTimer()
         {
             private long nextFrameStamp = System.nanoTime();

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import game.gui.ButtonWrapper;
+import game.map.BaseMap;
 import game.objects.GameObject;
 import game.objects.GameObjectTest;
 import javafx.event.Event;
@@ -14,6 +15,8 @@ public class GameModel
 {
     private Model model;
 
+    private BaseMap loadedMap;
+
     private ArrayList<GameObject> allObjects = null;
 
     private ButtonWrapper[] currentAbilities = new ButtonWrapper[0];
@@ -23,7 +26,6 @@ public class GameModel
     private double speed = 0.01;
 
     public GameModel(Model m)
-
     {
         model = m;
     }
@@ -49,12 +51,14 @@ public class GameModel
 
     public GameObject[] init()
     {
-        GameObject[] go = new GameObject[1];
-        GameObjectTest gtest = new GameObjectTest();
-        go[0] = gtest;
-        currentAbilities = new ButtonWrapper[2];
-        currentAbilities[0] = new ButtonWrapper("Change Color", "ChangeColor to Blue", model.getAsBackground("MENUE_LEFT"), gtest.actionChangeColor(Color.ALICEBLUE));
-        currentAbilities[1] = new ButtonWrapper("Change Color", "ChangeColor to Red", model.getAsBackground("MENUE_RIGHT"), gtest.actionChangeColor(Color.RED));
+        GameObject[] go = loadedMap.getNewMap();
+        currentAbilities = new ButtonWrapper[0];
+        // currentAbilities[0] = new ButtonWrapper("Change Color", "ChangeColor
+        // to Blue", model.getAsBackground("MENUE_LEFT"),
+        // gtest.actionChangeColor(Color.ALICEBLUE));
+        // currentAbilities[1] = new ButtonWrapper("Change Color", "ChangeColor
+        // to Red", model.getAsBackground("MENUE_RIGHT"),
+        // gtest.actionChangeColor(Color.RED));
 
         allObjects = new ArrayList<GameObject>();
         for (int i = 0; i < go.length; i++)
@@ -65,6 +69,9 @@ public class GameModel
         return go;
     }
 
+    /**
+     * berechnet das verhalten der Welt ohne die eingriffe des Users
+     */
     public void calculatePhysics()
     {
         allObjects.forEach((obj) -> {
@@ -79,5 +86,10 @@ public class GameModel
     public ButtonWrapper[] getCurrentAbilities()
     {
         return currentAbilities;
+    }
+
+    public void loadMap(String selectedMap)
+    {
+        loadedMap = new BaseMap(model, selectedMap);
     }
 }

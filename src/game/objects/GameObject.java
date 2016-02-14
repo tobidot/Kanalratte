@@ -2,6 +2,7 @@ package game.objects;
 
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
+import model.Model;
 
 public abstract class GameObject
 {
