@@ -41,6 +41,8 @@ public class GameModel
 
     private SimpleDoubleProperty cameraY;
 
+    private SimpleDoubleProperty cameraZoom;
+
     private double oldCameraY;
 
     private double oldCameraX;
@@ -55,6 +57,7 @@ public class GameModel
         isInitiated = false;
         cameraX = new SimpleDoubleProperty(oldCameraX = 0);
         cameraY = new SimpleDoubleProperty(oldCameraY = 0);
+        cameraZoom = new SimpleDoubleProperty(1);
     }
 
     /**
@@ -160,12 +163,28 @@ public class GameModel
         loadedMap = new BaseMap(model, selectedMap);
     }
 
+    /**
+     * Die Kamera wurde bewegt
+     * 
+     * @param x
+     *            neue X Koordinate auf dem Screen
+     * @param y
+     *            neue Y Koordinate auf dem Screen
+     */
     public void moveCamera(double x, double y)
     {
-        cameraX.set(oldCameraX + (x - cameraDragStartX));
-        cameraY.set(oldCameraY + (y - cameraDragStartY));
+        cameraX.set(oldCameraX + (x - cameraDragStartX) / cameraZoom.get());
+        cameraY.set(oldCameraY + (y - cameraDragStartY) / cameraZoom.get());
     }
 
+    /**
+     * Eine mögliche Kamera bewegung wurde initiert
+     * 
+     * @param x
+     *            start X-Koordinate
+     * @param y
+     *            start Y-Koordinate
+     */
     public void startMoveCamera(double x, double y)
     {
         oldCameraY = cameraY.get();
@@ -174,13 +193,68 @@ public class GameModel
         cameraDragStartY = y;
     }
 
+    /**
+     * 
+     * @return gibt die X-Poisition der Kamera zurück
+     */
     public ReadOnlyDoubleProperty getCameraX()
     {
         return cameraX;
     }
 
+    /**
+     * 
+     * @return gibt die Y-Poisition der Kamera zurück
+     */
     public ReadOnlyDoubleProperty getCameraY()
     {
         return cameraY;
+    }
+
+    public ReadOnlyDoubleProperty getCameraZoom()
+    {
+        return cameraZoom;
+    }
+
+    public void zoomGame(double deltaY, double centerWidth, double centerHeight, double x, double y)
+    {
+
+        double oldZoom, newZoom;
+        // oldZoom = 1 / cameraZoom.get();
+        // cameraZoom.set(cameraZoom.get() + deltaY / 200 *
+        // cameraZoom.get());
+        // if (cameraZoom.get() < 0.1)
+        // cameraZoom.set(0.1);
+        // if (cameraZoom.get() > 5)
+        // cameraZoom.set(5);
+        // newZoom = oldZoom - cameraZoom.get();
+        if (deltaY > 0)
+        {
+            oldZoom = 1 / cameraZoom.get();
+            newZoom = cameraZoom.get() * 2;
+        }
+        else
+        {
+            oldZoom = 1 / cameraZoom.get();
+            newZoom = cameraZoom.get() / 2;
+        }
+        cameraZoom.set(newZoom);
+        /// zurückzoomen
+        double centerX = (centerWidth - cameraX.get()) / newZoom;
+        double centerY = (centerHeight - cameraY.get()) / newZoom;
+
+        /// auf neuen Zoom Wert
+        cameraX.set(centerWidth + centerX);
+        cameraY.set(centerHeight + centerY);
+        // cameraX.set(centerWidth);
+        // cameraY.set(centerHeight);
+
+        // cameraY.set(cameraY.get() * cameraZoom.get());
+        System.out.println("Step : " + centerWidth * 2 + " / " + centerHeight * 2);
+        System.out.println("CamX : " + cameraX.get());
+        System.out.println("CamY : " + cameraY.get());
+        System.out.println("Starring at  : " + centerX + "/" + centerY + "");
+        System.out.println("CamZoom : " + cameraZoom.get() + " new " + newZoom + " old " + oldZoom);
+        System.out.println("--------------------");
     }
 }

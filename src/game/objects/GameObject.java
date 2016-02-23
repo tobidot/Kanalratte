@@ -1,5 +1,7 @@
 package game.objects;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -17,12 +19,34 @@ public abstract class GameObject
 {
     protected Node visual;
 
+    protected SimpleDoubleProperty positionX;
+
+    protected SimpleDoubleProperty positionY;
+
+    protected SimpleDoubleProperty width;
+
+    protected SimpleDoubleProperty height;
+
     private long bufferedNanosecs;
 
     protected long oldNanosecs;
 
     public GameObject()
     {
+        positionX = new SimpleDoubleProperty();
+        positionY = new SimpleDoubleProperty();
+        width = new SimpleDoubleProperty();
+        height = new SimpleDoubleProperty();
+    }
+
+    public ReadOnlyDoubleProperty getX()
+    {
+        return positionX;
+    }
+
+    public ReadOnlyDoubleProperty getY()
+    {
+        return positionY;
     }
 
     /**
@@ -54,14 +78,19 @@ public abstract class GameObject
      */
     public void init(Model m, GameModel gm, String param)
     {
-        visual.translateXProperty().bind(gm.getCameraX());
-        visual.translateYProperty().bind(gm.getCameraY());
+
+        visual.translateXProperty().bind(gm.getCameraX().add(gm.getCameraZoom().multiply(width).multiply(0.5)));
+        visual.translateYProperty().bind(gm.getCameraY().add(gm.getCameraZoom().multiply(height).multiply(0.5)));
+        visual.scaleXProperty().bind(gm.getCameraZoom());
+        visual.scaleYProperty().bind(gm.getCameraZoom());
+        visual.layoutXProperty().bind(positionX.multiply(gm.getCameraZoom()));
+        visual.layoutYProperty().bind(positionY.multiply(gm.getCameraZoom()));
 
     }
 
     /**
      * Verhalten dieses Objekts in einem gewissen Interval<br>
-     * (Gravitation , Bewwegungsbefehl ...)
+     * (Gravitation , Bewegungsbefehl ...)
      * 
      * Die supermethode muss aufgerufen werden
      */

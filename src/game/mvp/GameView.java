@@ -63,6 +63,8 @@ public class GameView extends View<HBox, GamePresenter>
 
     private UsableButton[] abilityButton = new UsableButton[abilitiesCount];
 
+    private double scale;
+
     public GameView()
     {
         VBox left;
@@ -382,4 +384,15 @@ public class GameView extends View<HBox, GamePresenter>
     {
         object.addToScreen(gameScreen);
     }
+
+    public double getGameScreenHeight()
+    {
+        return gameScreen.getHeight();
+    }
+
+    public double getGameScreenWidth()
+    {
+        return gameScreen.getWidth();
+    }
+
 }

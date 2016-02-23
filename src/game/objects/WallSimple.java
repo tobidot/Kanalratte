@@ -6,9 +6,19 @@ import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
 
+/**
+ * Eine einfache Wand abgeleitete KLassen sind
+ * 
+ * @see WallRiff
+ *
+ * 
+ * 
+ * @author Tobi
+ *
+ */
 public class WallSimple extends GameObject
 {
-    public static final int WALLSIZE = 16;
+    public static final int WALLSIZE = 20;
 
     private Rectangle visual;
 
@@ -19,6 +29,10 @@ public class WallSimple extends GameObject
         visual.setHeight(WALLSIZE);
         visual.setLayoutX(x * WALLSIZE);
         visual.setLayoutY(y * WALLSIZE);
+        positionX.set(x * WALLSIZE);
+        positionY.set(y * WALLSIZE);
+        width.set(WALLSIZE);
+        height.set(WALLSIZE);
     }
 
     @Override

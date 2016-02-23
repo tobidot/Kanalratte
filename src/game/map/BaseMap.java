@@ -44,9 +44,10 @@ public class BaseMap
     {
         mapName = "@TestMap";
         loadedMap = new GameObject[3];
-        loadedMap[0] = new BackgroundImage(model, "TEST");
+        // loadedMap[0] = new BackgroundImage(model, "TEST");
         loadedMap[1] = new WallSimple(0, 0);
         loadedMap[2] = new WallSimple(2, 0);
+        loadedMap[0] = new WallSimple(5, 5);
     }
 
     public GameObject[] getNewMap()

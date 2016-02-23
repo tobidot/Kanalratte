@@ -1,11 +1,9 @@
 package game.mvp;
 
-import game.gui.ButtonWrapper;
 import game.objects.GameObject;
 import javafx.event.Event;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
+import javafx.scene.input.ScrollEvent;
 import model.Model;
 import mvp.MainPresenter;
 import mvp.Presenter;
@@ -89,11 +87,16 @@ public class GamePresenter extends Presenter<GameView>
             }
             if (mouse.getEventType() == MouseEvent.MOUSE_DRAGGED)
             {
-                if (mouse.isControlDown())
+                if (mouse.isControlDown() && mouse.isPrimaryButtonDown())
                 {
                     model.getGame().moveCamera(mouse.getSceneX(), mouse.getSceneY());
                 }
             }
+        }
+        if (event instanceof ScrollEvent)
+        {
+            ScrollEvent scroll = (ScrollEvent) event;
+            model.getGame().zoomGame(scroll.getDeltaY(), view.getGameScreenWidth() / 2, view.getGameScreenHeight() / 2, scroll.getSceneX(), scroll.getSceneY());
         }
         model.getGame().onGameWorldUserEvent(event);
     }
