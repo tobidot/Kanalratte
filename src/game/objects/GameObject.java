@@ -42,6 +42,8 @@ public abstract class GameObject
      * Initialisiert dieses Objekt neu diese Methode sollte immer überschrieben
      * werden und mit dem jeweiligen Daten gefüllt
      * 
+     * Im normalfall sollte die SUPER-methode aufgerufen werden
+     * 
      * @param m
      *            ZUgriff auf das Model, um Resourcen zu laden
      * @param gm
@@ -52,12 +54,16 @@ public abstract class GameObject
      */
     public void init(Model m, GameModel gm, String param)
     {
+        visual.translateXProperty().bind(gm.getCameraX());
+        visual.translateYProperty().bind(gm.getCameraY());
+
     }
 
     /**
      * Verhalten dieses Objekts in einem gewissen Interval<br>
      * (Gravitation , Bewwegungsbefehl ...)
      * 
+     * Die supermethode muss aufgerufen werden
      */
     public void calculatePhysics(long nanosecs)
     {

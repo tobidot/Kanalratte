@@ -1,9 +1,9 @@
 package game.map;
 
-import java.util.ArrayList;
-
 import game.objects.BackgroundImage;
 import game.objects.GameObject;
+import game.objects.GameObjectTest;
+import game.objects.WallSimple;
 import model.Model;
 
 public class BaseMap
@@ -43,8 +43,10 @@ public class BaseMap
     private void loadBuildInTestMap()
     {
         mapName = "@TestMap";
-        loadedMap = new GameObject[1];
+        loadedMap = new GameObject[3];
         loadedMap[0] = new BackgroundImage(model, "TEST");
+        loadedMap[1] = new WallSimple(0, 0);
+        loadedMap[2] = new WallSimple(2, 0);
     }
 
     public GameObject[] getNewMap()

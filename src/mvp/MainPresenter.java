@@ -95,7 +95,6 @@ public class MainPresenter extends Presenter<MainView>
 
     public void deactivateInGameWindow()
     {
-        // TODO Auto-generated method stub
 
     }
 
@@ -103,7 +102,7 @@ public class MainPresenter extends Presenter<MainView>
     {
         if (currentPresenter instanceof GamePresenter)
         {
-            ((GamePresenter) currentPresenter).addGameWorldObject(object);
+            ((GamePresenter) currentPresenter).addGameWorldObject(object, "");
         }
 
     }

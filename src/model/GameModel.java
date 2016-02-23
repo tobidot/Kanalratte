@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import game.gui.ButtonWrapper;
 import game.map.BaseMap;
 import game.objects.GameObject;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
+import mvp.Presenter;
 
 /**
  * GameModel hält alle informationen über das wirkliche Spiel
@@ -29,6 +33,18 @@ public class GameModel
 
     private boolean isInitiated;
 
+    private double cameraDragStartY;
+
+    private double cameraDragStartX;
+
+    private SimpleDoubleProperty cameraX;
+
+    private SimpleDoubleProperty cameraY;
+
+    private double oldCameraY;
+
+    private double oldCameraX;
+
     public GameModel(Model m)
     {
         model = m;
@@ -37,6 +53,8 @@ public class GameModel
         currentMenueOptions = new ButtonWrapper[0];
         allObjects = null;
         isInitiated = false;
+        cameraX = new SimpleDoubleProperty(oldCameraX = 0);
+        cameraY = new SimpleDoubleProperty(oldCameraY = 0);
     }
 
     /**
@@ -82,6 +100,7 @@ public class GameModel
     public GameObject[] init()
     {
         GameObject[] go = loadedMap.getNewMap();
+
         currentMenueOptions = new ButtonWrapper[0];
         currentAbilities = new ButtonWrapper[0];
 
@@ -139,5 +158,29 @@ public class GameModel
     public void loadMap(String selectedMap)
     {
         loadedMap = new BaseMap(model, selectedMap);
+    }
+
+    public void moveCamera(double x, double y)
+    {
+        cameraX.set(oldCameraX + (x - cameraDragStartX));
+        cameraY.set(oldCameraY + (y - cameraDragStartY));
+    }
+
+    public void startMoveCamera(double x, double y)
+    {
+        oldCameraY = cameraY.get();
+        oldCameraX = cameraX.get();
+        cameraDragStartX = x;
+        cameraDragStartY = y;
+    }
+
+    public ReadOnlyDoubleProperty getCameraX()
+    {
+        return cameraX;
+    }
+
+    public ReadOnlyDoubleProperty getCameraY()
+    {
+        return cameraY;
     }
 }

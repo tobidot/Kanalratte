@@ -3,6 +3,8 @@ package game.mvp;
 import game.gui.ButtonWrapper;
 import game.objects.GameObject;
 import javafx.event.Event;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import model.Model;
 import mvp.MainPresenter;
@@ -69,13 +71,30 @@ public class GamePresenter extends Presenter<GameView>
      * 
      * @param object
      */
-    public void addGameWorldObject(GameObject object)
+    public void addGameWorldObject(GameObject object, String param)
     {
         view.addObjectInGame(object);
+        object.init(model, model.getGame(), param);
+
     }
 
     public void onGameWorldUserEvent(Event event)
     {
+        if (event instanceof MouseEvent)
+        {
+            MouseEvent mouse = (MouseEvent) event;
+            if (mouse.getEventType() == MouseEvent.MOUSE_PRESSED)
+            {
+                model.getGame().startMoveCamera(mouse.getSceneX(), mouse.getSceneY());
+            }
+            if (mouse.getEventType() == MouseEvent.MOUSE_DRAGGED)
+            {
+                if (mouse.isControlDown())
+                {
+                    model.getGame().moveCamera(mouse.getSceneX(), mouse.getSceneY());
+                }
+            }
+        }
         model.getGame().onGameWorldUserEvent(event);
     }
 
@@ -90,7 +109,7 @@ public class GamePresenter extends Presenter<GameView>
             GameObject[] gos = model.getGame().init();
             for (int i = 0; i < gos.length; i++)
             {
-                addGameWorldObject(gos[i]);
+                addGameWorldObject(gos[i], "");
             }
             view.showAbbilties(model.getGame().getCurrentAbilities());
         }
