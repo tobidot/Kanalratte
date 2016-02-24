@@ -2,6 +2,7 @@ package game.mvp;
 
 import game.objects.GameObject;
 import javafx.event.Event;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import model.Model;
@@ -87,9 +88,13 @@ public class GamePresenter extends Presenter<GameView>
             }
             if (mouse.getEventType() == MouseEvent.MOUSE_DRAGGED)
             {
-                if (mouse.isControlDown() && mouse.isPrimaryButtonDown())
+                if (mouse.isControlDown() && mouse.isPrimaryButtonDown() || mouse.isMiddleButtonDown())
                 {
                     model.getGame().moveCamera(mouse.getSceneX(), mouse.getSceneY());
+                }
+                else if (!mouse.isControlDown() && mouse.isPrimaryButtonDown())
+                {
+                    model.getGame().startMoveCamera(mouse.getSceneX(), mouse.getSceneY());
                 }
             }
         }

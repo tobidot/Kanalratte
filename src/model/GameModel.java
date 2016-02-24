@@ -173,8 +173,8 @@ public class GameModel
      */
     public void moveCamera(double x, double y)
     {
-        cameraX.set(oldCameraX + (x - cameraDragStartX) / cameraZoom.get());
-        cameraY.set(oldCameraY + (y - cameraDragStartY) / cameraZoom.get());
+        cameraX.set(oldCameraX + (x - cameraDragStartX));
+        cameraY.set(oldCameraY + (y - cameraDragStartY));
     }
 
     /**
@@ -218,43 +218,15 @@ public class GameModel
 
     public void zoomGame(double deltaY, double centerWidth, double centerHeight, double x, double y)
     {
-
         double oldZoom, newZoom;
-        // oldZoom = 1 / cameraZoom.get();
-        // cameraZoom.set(cameraZoom.get() + deltaY / 200 *
-        // cameraZoom.get());
-        // if (cameraZoom.get() < 0.1)
-        // cameraZoom.set(0.1);
-        // if (cameraZoom.get() > 5)
-        // cameraZoom.set(5);
-        // newZoom = oldZoom - cameraZoom.get();
-        if (deltaY > 0)
-        {
-            oldZoom = 1 / cameraZoom.get();
-            newZoom = cameraZoom.get() * 2;
-        }
-        else
-        {
-            oldZoom = 1 / cameraZoom.get();
-            newZoom = cameraZoom.get() / 2;
-        }
+        oldZoom = cameraZoom.get();
+        /// größere Schritte je näher gezoomt wurde wirkt dynamischer
+        newZoom = cameraZoom.get() + (deltaY / 300) * cameraZoom.get();
+        newZoom = Math.max(0.1, Math.min(5, newZoom));
+        /// Die Formel funktioniert durch probieren ... dont ask
+        cameraX.set(cameraX.get() + (oldZoom - newZoom) * (-cameraX.get() + centerWidth) / oldZoom);
+        cameraY.set(cameraY.get() + (oldZoom - newZoom) * (-cameraY.get() + centerHeight) / oldZoom);
+
         cameraZoom.set(newZoom);
-        /// zurückzoomen
-        double centerX = (centerWidth - cameraX.get()) / newZoom;
-        double centerY = (centerHeight - cameraY.get()) / newZoom;
-
-        /// auf neuen Zoom Wert
-        cameraX.set(centerWidth + centerX);
-        cameraY.set(centerHeight + centerY);
-        // cameraX.set(centerWidth);
-        // cameraY.set(centerHeight);
-
-        // cameraY.set(cameraY.get() * cameraZoom.get());
-        System.out.println("Step : " + centerWidth * 2 + " / " + centerHeight * 2);
-        System.out.println("CamX : " + cameraX.get());
-        System.out.println("CamY : " + cameraY.get());
-        System.out.println("Starring at  : " + centerX + "/" + centerY + "");
-        System.out.println("CamZoom : " + cameraZoom.get() + " new " + newZoom + " old " + oldZoom);
-        System.out.println("--------------------");
     }
 }

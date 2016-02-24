@@ -43,11 +43,16 @@ public class BaseMap
     private void loadBuildInTestMap()
     {
         mapName = "@TestMap";
-        loadedMap = new GameObject[3];
+        loadedMap = new GameObject[8];
         // loadedMap[0] = new BackgroundImage(model, "TEST");
-        loadedMap[1] = new WallSimple(0, 0);
-        loadedMap[2] = new WallSimple(2, 0);
-        loadedMap[0] = new WallSimple(5, 5);
+        loadedMap[0] = new WallSimple(0, 0);
+        loadedMap[1] = new WallSimple(-10, -10);
+        loadedMap[2] = new WallSimple(5, 5);
+        loadedMap[3] = new WallSimple(20, 0);
+        loadedMap[4] = new WallSimple(0, 20);
+        loadedMap[5] = new WallSimple(20, 20);
+        loadedMap[6] = new WallSimple(120, 120);
+        loadedMap[7] = new WallSimple(130, 130);
     }
 
     public GameObject[] getNewMap()
