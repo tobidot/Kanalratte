@@ -1,8 +1,10 @@
 package game.map;
 
+import java.util.ArrayList;
+
 import game.objects.BackgroundImage;
 import game.objects.GameObject;
-import game.objects.GameObjectTest;
+import game.objects.Kanal;
 import game.objects.WallSimple;
 import model.Model;
 
@@ -42,17 +44,30 @@ public class BaseMap
 
     private void loadBuildInTestMap()
     {
+        ArrayList<GameObject> bufflist = new ArrayList<GameObject>(100);
+        bufflist.add(new BackgroundImage(model, "MAP_BACKGROUND_B"));
+        for (int i = 0; i < 19; i++)
+        {
+            bufflist.add(new WallSimple(i, 0));
+            bufflist.add(new WallSimple(19, i));
+            bufflist.add(new WallSimple(19 - i, 19));
+            bufflist.add(new WallSimple(0, 19 - i));
+        }
+        for (int i = 0; i < 10; i++)
+            bufflist.add(new Kanal(1 + i, 5));
+        for (int i = 0; i < 6; i++)
+            bufflist.add(new Kanal(11, 5 + i));
+        for (int i = 0; i < 6; i++)
+            bufflist.add(new Kanal(11 + i, 5 + i));
+        for (int i = 0; i < 6; i++)
+            bufflist.add(new Kanal(12 + i, 5 + i));
+        for (int i = 0; i < 3; i++)
+            bufflist.add(new Kanal(11 - i, 4));
+        bufflist.add(new WallSimple(1, 2));
+
         mapName = "@TestMap";
-        loadedMap = new GameObject[8];
-        // loadedMap[0] = new BackgroundImage(model, "TEST");
-        loadedMap[0] = new WallSimple(0, 0);
-        loadedMap[1] = new WallSimple(-10, -10);
-        loadedMap[2] = new WallSimple(5, 5);
-        loadedMap[3] = new WallSimple(20, 0);
-        loadedMap[4] = new WallSimple(0, 20);
-        loadedMap[5] = new WallSimple(20, 20);
-        loadedMap[6] = new WallSimple(120, 120);
-        loadedMap[7] = new WallSimple(130, 130);
+        loadedMap = new GameObject[bufflist.size()];
+        loadedMap = bufflist.toArray(loadedMap);
     }
 
     public GameObject[] getNewMap()

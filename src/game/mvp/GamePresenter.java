@@ -74,7 +74,6 @@ public class GamePresenter extends Presenter<GameView>
     {
         view.addObjectInGame(object);
         object.init(model, model.getGame(), param);
-
     }
 
     public void onGameWorldUserEvent(Event event)

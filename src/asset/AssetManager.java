@@ -39,10 +39,13 @@ public class AssetManager
 
     public static class ImageResource extends ResourceType
     {
+        private ImagePattern imgPattern;
+
         public ImageResource(String p)
         {
             super(p);
             resource = new Image(path);
+            imgPattern = new ImagePattern((Image) resource, 0, 0, 1, 1, true);
         }
 
         public Image getImage()
@@ -50,9 +53,14 @@ public class AssetManager
             return (Image) resource;
         }
 
+        public ImagePattern getAsImagePattern()
+        {
+            return imgPattern;
+        }
+
         public Background getAsBackGround()
         {
-            return new Background(new BackgroundFill(new ImagePattern((Image) resource, 0, 0, 1, 1, true), new CornerRadii(0), new Insets(0)));
+            return new Background(new BackgroundFill(imgPattern, new CornerRadii(0), new Insets(0)));
         }
     }
 
@@ -70,12 +78,18 @@ public class AssetManager
         resources.put("MENUE_INFO_NONE", new ImageResource("file:bilder/Info_NoSelect.png"));
         resources.put("MENUE_EXIT", new ImageResource("file:bilder/Exit_Button.png"));
 
+        resources.put("MAP_BACKGROUND_A", new ImageResource("file:bilder/Map_Background.png"));
+        resources.put("MAP_BACKGROUND_B", new ImageResource("file:bilder/Map_Background_B.png"));
+
+        resources.put("MAP_MAUER_A", new ImageResource("file:bilder/Mauer/Mauer_A.png"));
+
         resources.put("ABILITY_A", new ImageResource("file:bilder/Abbility_Move.png"));
         resources.put("ABILITY_B", new ImageResource("file:bilder/Abbility_Move.png"));
         resources.put("ABILITY_C", new ImageResource("file:bilder/Abbility_Attack.png"));
         resources.put("ABILITY_D", new ImageResource("file:bilder/Abbility_Attack.png"));
 
         resources.put("ANIMATION_TEST", new ButtonAnimationResource("animationen/button/test.ani"));
+        resources.put("ANIMATION_MAP_KANAL_A", new ButtonAnimationResource("animationen/map/Kanal_A.ani"));
     }
 
     public String getResourcePath(String key)
