@@ -86,6 +86,8 @@ public class GameView extends View<HBox, GamePresenter>
 
         /// GameMenu Layout
         gameMenuLayout();
+        
+        updateGameMenu();
 
     }
 

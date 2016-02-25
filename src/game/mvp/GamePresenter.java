@@ -21,6 +21,20 @@ public class GamePresenter extends Presenter<GameView>
     public GamePresenter(MainPresenter mainPresenter, Model model)
     {
         super(mainPresenter, model, new GameView());
+        /// Hier im Presenter GameMenuButtons einfügen
+        /**
+         * ButtonWrapper bw = new ButtonWrapper("<identName>","<description>"
+         * ,model.getAsBackground("<ResourceName>"),<EventAction>);
+         * view.addGameMenuButton(bw);
+         */
+
+        /// Und Ability-Buttons
+        /**
+         * ButtonWrapper[] bw = new ButtonWrapper[1]; bw[0] = new ButtonWrapper(
+         * "<identName>","<description>",model.getAsBackground("<ResourceName>"
+         * ),<EventAction>); view.showAbbilties(bw);
+         */
+
     }
 
     @Override
@@ -37,15 +51,18 @@ public class GamePresenter extends Presenter<GameView>
 
     }
 
-    public void onInGameOption(String nameID)
-    {
-        switch (nameID)
-        {
-            case "Soldier":
-                System.out.println("Soldat ausbilden");
-                break;
-        }
-    }
+    // public void onInGameOption(String nameID)
+    // {
+    // switch (nameID)
+    // {
+    // /**
+    // * case "":
+    // */
+    // case "Soldier":
+    // System.out.println("Soldat ausbilden");
+    // break;
+    // }
+    // }
 
     public void onAbilityUsed(String id)
     {
