@@ -1,6 +1,6 @@
 package game.gui;
 
-import asset.AssetManager.ImageResource;
+import asset.types.ImageResource;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

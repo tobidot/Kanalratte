@@ -3,73 +3,33 @@ package asset;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import asset.types.ButtonAnimationResource;
+import asset.types.ImageResource;
+import asset.types.ResourceType;
 import game.gui.ButtonAnimation;
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.ImagePattern;
 
 public class AssetManager
 {
-
-    public static abstract class ResourceType
-    {
-        protected String path;
-
-        protected Object resource;
-
-        public ResourceType(String p)
-        {
-            path = p;
-            resource = null;
-        }
-
-        public String getPath()
-        {
-            return path;
-        }
-
-        public Object getResource()
-        {
-            return resource;
-        }
-    }
-
-    public static class ImageResource extends ResourceType
-    {
-        private ImagePattern imgPattern;
-
-        public ImageResource(String p)
-        {
-            super(p);
-            resource = new Image(path);
-            imgPattern = new ImagePattern((Image) resource, 0, 0, 1, 1, true);
-        }
-
-        public Image getImage()
-        {
-            return (Image) resource;
-        }
-
-        public ImagePattern getAsImagePattern()
-        {
-            return imgPattern;
-        }
-
-        public Background getAsBackGround()
-        {
-            return new Background(new BackgroundFill(imgPattern, new CornerRadii(0), new Insets(0)));
-        }
-    }
-
+    /**
+     * speichert alle Resourcen die geladen wurden
+     */
     private HashMap<String, ResourceType> resources;
 
+    /**
+     * Die Resourcen werden im Konstruktor geladen
+     */
     public AssetManager()
     {
         resources = new HashMap<String, ResourceType>();
+
+        /// Test
+
         resources.put("TEST", new ImageResource("file:bilder/Test.png"));
+        resources.put("ANIMATION_TEST", new ButtonAnimationResource("animationen/button/test.ani"));
+
+        /// Menübilder
+
         resources.put("MENUE_RIGHT", new ImageResource("file:bilder/menue_right.png"));
         resources.put("MENUE_OPTIONS_BACK", new ImageResource("file:bilder/options_background.png"));
         resources.put("MENUE_LEFT", new ImageResource("file:bilder/menue_left.png"));
@@ -77,6 +37,10 @@ public class AssetManager
         resources.put("MENUE_MORE_RIGHT", new ImageResource("file:bilder/InGameAuswahl_Blättern_right.png"));
         resources.put("MENUE_INFO_NONE", new ImageResource("file:bilder/Info_NoSelect.png"));
         resources.put("MENUE_EXIT", new ImageResource("file:bilder/Exit_Button.png"));
+        resources.put("ABILITY_A", new ImageResource("file:bilder/Abbility_Move.png"));
+        resources.put("ABILITY_B", new ImageResource("file:bilder/Abbility_Move.png"));
+        resources.put("ABILITY_C", new ImageResource("file:bilder/Abbility_Attack.png"));
+        resources.put("ABILITY_D", new ImageResource("file:bilder/Abbility_Attack.png"));
 
         /// Map
         resources.put("MAP_BACKGROUND_A", new ImageResource("file:bilder/Map_Background.png"));
@@ -87,53 +51,91 @@ public class AssetManager
         resources.put("MAP_WEG_C", new ImageResource("file:bilder/Weg/Weg_C.png"));
         resources.put("MAP_MAUER_A", new ImageResource("file:bilder/Mauer/Mauer_A.png"));
 
-        ///
-
-        resources.put("ABILITY_A", new ImageResource("file:bilder/Abbility_Move.png"));
-        resources.put("ABILITY_B", new ImageResource("file:bilder/Abbility_Move.png"));
-        resources.put("ABILITY_C", new ImageResource("file:bilder/Abbility_Attack.png"));
-        resources.put("ABILITY_D", new ImageResource("file:bilder/Abbility_Attack.png"));
-
-        resources.put("ANIMATION_TEST", new ButtonAnimationResource("animationen/button/test.ani"));
         resources.put("ANIMATION_MAP_KANAL_A", new ButtonAnimationResource("animationen/map/Kanal_A.ani"));
+
     }
 
+    /**
+     * Gíbt die geladene Resource unverändert zurück
+     * 
+     * @param key
+     *            Name der Resource
+     * @return geladene Resource
+     */
+    public ResourceType getResource(String key)
+    {
+        key = key.toUpperCase();
+        ResourceType rt = resources.get(key);
+        if (rt == null)
+        {
+            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
+        }
+        else
+        {
+            return rt;
+        }
+    }
+
+    /**
+     * Gíbt die geladene Resource unverändert zurück
+     * 
+     * @param key
+     *            Name der Resource
+     * @return geladene Resource
+     */
+    public <T extends ResourceType> T getResource(String key, Class<T> c)
+    {
+        ResourceType rt = getResource(key);
+        if (c.isInstance(rt))
+        {
+            return c.cast(rt);
+        }
+        else
+        {
+            throw new NoSuchElementException("Resource : '" + key + "' ist keine " + c.getSimpleName());
+        }
+    }
+
+    /**
+     * Gibt den Speicherpfad einer Resource zurück
+     * 
+     * @param key
+     *            Bezeichner der Resource
+     * @return String mit URL Pfad
+     */
     public String getResourcePath(String key)
     {
-        ResourceType rt = resources.get(key);
-        if (rt == null)
-        {
-            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
-        }
-        else
-        {
-            return rt.getPath();
-        }
+        ResourceType rt = getResource(key);
+        return rt.getPath();
     }
 
-    public Object getResource(String key)
+    /**
+     * Gibt das gespeicherte Objekt in der Resource zurück
+     * 
+     * @param key
+     *            Name der Resource
+     * @return Die Resource ungekapselt
+     */
+    public Object getResourceData(String key)
     {
-        ResourceType rt = resources.get(key);
-        if (rt == null)
-        {
-            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
-        }
-        else
-        {
-            return rt.getResource();
-        }
+        ResourceType rt = getResource(key);
+        return rt.getResource();
     }
 
+    /**
+     * Gibt den Inhalt der Resource zurück und checkt ob es sich wirklcih um
+     * eine ImageResource handelt
+     * 
+     * @param key
+     *            Name der resource
+     * @return Bild aus der Resource
+     */
     public Image getImage(String key)
     {
-        ResourceType rt = resources.get(key);
-        if (rt == null)
+        ResourceType rt = getResource(key);
+        if (rt instanceof ImageResource == false)
         {
-            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
-        }
-        else if (rt instanceof ImageResource == false)
-        {
-            throw new NoSuchElementException("Resource : '" + key + "' ist kein Image");
+            throw new NoSuchElementException("Resource : '" + key + "' ist kein ImageResource");
         }
         else
         {
@@ -141,16 +143,21 @@ public class AssetManager
         }
     }
 
+    /**
+     * 
+     * Gibt den Inhalt der Resource zurück und checkt ob es sich wirklich um
+     * eine ButtonAnimation handelt
+     * 
+     * @param key
+     *            Name der resource
+     * @return Animation aus der Resource
+     */
     public ButtonAnimation getButtonAnimation(String key)
     {
         ResourceType rt = resources.get(key);
-        if (rt == null)
+        if (rt instanceof ButtonAnimationResource == false)
         {
-            throw new NoSuchElementException("Resource : '" + key + "' ist nicht vorhanden");
-        }
-        else if (rt instanceof ButtonAnimationResource == false)
-        {
-            throw new NoSuchElementException("Resource : '" + key + "' ist keine Button-Animation");
+            throw new NoSuchElementException("Resource : '" + key + "' ist keine ButtonAnimationResource");
         }
         else
         {

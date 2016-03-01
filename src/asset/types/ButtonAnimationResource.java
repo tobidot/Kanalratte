@@ -1,4 +1,4 @@
-package asset;
+package asset.types;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -6,8 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import asset.AssetManager.ImageResource;
-import asset.AssetManager.ResourceType;
+import asset.AssetManager;
 import game.gui.ButtonAnimation;
 
 public class ButtonAnimationResource extends ResourceType

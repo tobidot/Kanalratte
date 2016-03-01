@@ -40,7 +40,7 @@ public class Model
 
     public Object getResource(String key)
     {
-        return assets.getResource(key);
+        return assets.getResourceData(key);
     }
 
     public Image getImage(String key)
