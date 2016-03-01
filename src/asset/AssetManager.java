@@ -26,7 +26,7 @@ public class AssetManager
         /// Test
 
         resources.put("TEST", new ImageResource("file:bilder/Test.png"));
-        resources.put("ANIMATION_TEST", new ButtonAnimationResource("animationen/button/test.ani"));
+        resources.put("ANIMATION_TEST", new ButtonAnimationResource(this, "animationen/button/test.ani"));
 
         /// Menübilder
 
@@ -51,7 +51,7 @@ public class AssetManager
         resources.put("MAP_WEG_C", new ImageResource("file:bilder/Weg/Weg_C.png"));
         resources.put("MAP_MAUER_A", new ImageResource("file:bilder/Mauer/Mauer_A.png"));
 
-        resources.put("ANIMATION_MAP_KANAL_A", new ButtonAnimationResource("animationen/map/Kanal_A.ani"));
+        resources.put("ANIMATION_MAP_KANAL_A", new ButtonAnimationResource(this, "animationen/map/Kanal_A.ani"));
 
     }
 
@@ -162,6 +162,41 @@ public class AssetManager
         else
         {
             return ((ButtonAnimationResource) rt).getButtonAnimation();
+        }
+    }
+
+    /**
+     * Gibt eine Resource anhand ihred URL-Pfades zurück
+     * 
+     * @param path
+     *            URL-Pfad
+     * @return ResourceType kapsel
+     */
+    public <T extends ResourceType> T getResourceByPath(String path, Class<T> c)
+    {
+        ResourceType[] rt = resources.values().toArray(rt = new ResourceType[resources.size()]);
+        for (ResourceType r : rt)
+        {
+            if (r.getPath().equals(path))
+            {
+                if (c.isInstance(r))
+                {
+                    return c.cast(r);
+                }
+                else
+                {
+                    throw new NoSuchElementException("Resource : '" + path + "' ist keine " + c.getSimpleName());
+                }
+            }
+        }
+        return null;
+    }
+
+    public void putResource(ImageResource imgRes, String path)
+    {
+        if (imgRes != null && path != null)
+        {
+            resources.put(path, imgRes);
         }
     }
 
