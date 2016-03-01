@@ -78,10 +78,16 @@ public class AssetManager
         resources.put("MENUE_INFO_NONE", new ImageResource("file:bilder/Info_NoSelect.png"));
         resources.put("MENUE_EXIT", new ImageResource("file:bilder/Exit_Button.png"));
 
+        /// Map
         resources.put("MAP_BACKGROUND_A", new ImageResource("file:bilder/Map_Background.png"));
         resources.put("MAP_BACKGROUND_B", new ImageResource("file:bilder/Map_Background_B.png"));
 
+        resources.put("MAP_WEG_A", new ImageResource("file:bilder/Weg/Weg_A.png"));
+        resources.put("MAP_WEG_B", new ImageResource("file:bilder/Weg/Weg_B.png"));
+        resources.put("MAP_WEG_C", new ImageResource("file:bilder/Weg/Weg_C.png"));
         resources.put("MAP_MAUER_A", new ImageResource("file:bilder/Mauer/Mauer_A.png"));
+
+        ///
 
         resources.put("ABILITY_A", new ImageResource("file:bilder/Abbility_Move.png"));
         resources.put("ABILITY_B", new ImageResource("file:bilder/Abbility_Move.png"));

@@ -90,7 +90,7 @@ public class GamePresenter extends Presenter<GameView>
     public void addGameWorldObject(GameObject object, String param)
     {
         view.addObjectInGame(object);
-        object.init(model, model.getGame(), param);
+        object.init(this, model, model.getGame(), param);
     }
 
     public void onGameWorldUserEvent(Event event)
@@ -141,6 +141,13 @@ public class GamePresenter extends Presenter<GameView>
         {
             model.getGame().calculatePhysics();
         }
+    }
+
+    public void setSelectedObject(GameObject gameObject)
+    {
+        model.getGame().setSelectedObject(gameObject);
+        view.showObjectSelected(gameObject);
+        view.showAbbilties(model.getGame().getCurrentAbilities());
     }
 
 }

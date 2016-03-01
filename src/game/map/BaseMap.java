@@ -3,6 +3,7 @@ package game.map;
 import java.util.ArrayList;
 
 import game.objects.BackgroundImage;
+import game.objects.Border;
 import game.objects.GameObject;
 import game.objects.Kanal;
 import game.objects.WallSimple;
@@ -52,6 +53,14 @@ public class BaseMap
             bufflist.add(new WallSimple(19, i));
             bufflist.add(new WallSimple(19 - i, 19));
             bufflist.add(new WallSimple(0, 19 - i));
+
+        }
+        for (int i = 0; i < 18; i++)
+        {
+            for (int j = 0; j < 18; j++)
+            {
+                bufflist.add(new Border(i + 1, j + 1));
+            }
         }
         for (int i = 0; i < 10; i++)
             bufflist.add(new Kanal(1 + i, 5));

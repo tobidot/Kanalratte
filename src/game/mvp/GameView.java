@@ -31,7 +31,6 @@ import mvp.View;
 
 public class GameView extends View<HBox, GamePresenter>
 {
-    private GridPane statusInfo;
 
     private Pane gameScreen;
 
@@ -52,6 +51,8 @@ public class GameView extends View<HBox, GamePresenter>
     private UsableButton[] menueButton = new UsableButton[menueButtonCount];
 
     private ArrayList<ButtonWrapper> menueButtonData = new ArrayList<ButtonWrapper>();
+
+    private GridPane statusInfo;
 
     private StackPane selectInfoProfile;
 
@@ -86,7 +87,7 @@ public class GameView extends View<HBox, GamePresenter>
 
         /// GameMenu Layout
         gameMenuLayout();
-        
+
         updateGameMenu();
 
     }
@@ -189,16 +190,16 @@ public class GameView extends View<HBox, GamePresenter>
         r.setPercentHeight(50);
 
         statusInfo.add(selectInfoProfile = new StackPane(), 0, 0, 2, 2);
-        GridPane.setFillHeight(selectInfoProfile, true);
         statusInfo.add(selectInfoLife = new StackPane(), 2, 0);
         GridPane.setFillHeight(selectInfoLife, true);
         statusInfo.add(selectInfoMana = new StackPane(), 2, 1);
         GridPane.setFillHeight(selectInfoMana, true);
-        selectInfoProfile.prefWidthProperty().bind(getResolutionWidth().multiply(0.27));
+        selectInfoProfile.prefHeightProperty().bind(getResolutionHeight().multiply(0.25));
+        selectInfoProfile.prefWidthProperty().bind(getResolutionWidth().multiply(0.23));
         selectInfoLife.prefWidthProperty().bind(getResolutionWidth().multiply(0.02));
         selectInfoMana.prefWidthProperty().bind(getResolutionWidth().multiply(0.02));
         /// 16 Felder(8 breit) mit Fähigkeiten
-        DoubleBinding w = getResolutionWidth().multiply(0.40 / (abilitiesCount / 2));
+        DoubleBinding w = getResolutionWidth().multiply(0.43 / (abilitiesCount / 2));
         for (int i = 0; i < abilitiesCount; i++)
         {
             final int index = i;
@@ -213,7 +214,7 @@ public class GameView extends View<HBox, GamePresenter>
             b.prefHeightProperty().bind(w);
             b.maxHeightProperty().bind(w);
             getResolutionWidth().addListener((src, o, n) -> {
-                GridPane.setMargin(b, new Insets(n.doubleValue() * 0.06 / (abilitiesCount / 2)));
+                GridPane.setMargin(b, new Insets(n.doubleValue() * 0.05 / (abilitiesCount)));
             });
             b.setOnAction(e -> {
                 abilityUse(abilityButton[index]);
@@ -395,6 +396,12 @@ public class GameView extends View<HBox, GamePresenter>
     public double getGameScreenWidth()
     {
         return gameScreen.getWidth();
+    }
+
+    public void showObjectSelected(GameObject gameObject)
+    {
+        selectInfoProfile.getChildren().clear();
+        gameObject.showProfile(selectInfoProfile);
     }
 
 }

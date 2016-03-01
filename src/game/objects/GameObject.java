@@ -1,9 +1,14 @@
 package game.objects;
 
+import game.mvp.GamePresenter;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
@@ -18,6 +23,8 @@ import model.Model;
 public abstract class GameObject
 {
     protected Node visual;
+
+    protected SimpleObjectProperty<Paint> profileImage;
 
     protected SimpleDoubleProperty positionX;
 
@@ -37,6 +44,7 @@ public abstract class GameObject
         positionY = new SimpleDoubleProperty();
         width = new SimpleDoubleProperty();
         height = new SimpleDoubleProperty();
+        profileImage = new SimpleObjectProperty<Paint>(Color.YELLOWGREEN);
     }
 
     public ReadOnlyDoubleProperty getX()
@@ -76,7 +84,7 @@ public abstract class GameObject
      * @param param
      *            extra Parameter für eine besondere Initialisierung
      */
-    public void init(Model m, GameModel gm, String param)
+    public void init(GamePresenter p, Model m, GameModel gm, String param)
     {
 
         visual.translateXProperty().bind(gm.getCameraX().add(gm.getCameraZoom().multiply(width).multiply(0.5)));
@@ -85,7 +93,9 @@ public abstract class GameObject
         visual.scaleYProperty().bind(gm.getCameraZoom());
         visual.layoutXProperty().bind(positionX.multiply(gm.getCameraZoom()));
         visual.layoutYProperty().bind(positionY.multiply(gm.getCameraZoom()));
-
+        visual.setOnMouseClicked((MouseEvent e) -> {
+            p.setSelectedObject(this);
+        });
     }
 
     /**
@@ -98,6 +108,18 @@ public abstract class GameObject
     {
         oldNanosecs = bufferedNanosecs;
         bufferedNanosecs = nanosecs;
+    }
+
+    public void showProfile(Pane pane)
+    {
+        Rectangle rect = new Rectangle();
+
+        System.out.println(":" + pane.getPrefWidth() + " , " + pane.getPrefHeight());
+        System.out.println("-" + pane.getWidth() + " , " + pane.getHeight());
+        rect.widthProperty().bind(pane.prefWidthProperty());
+        rect.heightProperty().bind(pane.prefHeightProperty());
+        rect.fillProperty().bind(profileImage);
+        pane.getChildren().add(rect);
     }
 
 }

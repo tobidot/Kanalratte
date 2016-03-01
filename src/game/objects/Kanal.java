@@ -1,5 +1,6 @@
 package game.objects;
 
+import game.mvp.GamePresenter;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -35,9 +36,9 @@ public class Kanal extends GameObject
     }
 
     @Override
-    public void init(Model m, GameModel gm, String param)
+    public void init(GamePresenter p, Model m, GameModel gm, String param)
     {
-        super.init(m, gm, param);
+        super.init(p, m, gm, param);
         // visual.setFill(new ImagePattern(m.getImage("TEST")));
         visual.fillProperty().bind(m.getButtonAnimation("ANIMATION_MAP_KANAL_A").currentImagePattern());
     }

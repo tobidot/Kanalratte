@@ -31,6 +31,8 @@ public class GameModel
 
     private ButtonWrapper[] currentMenueOptions;
 
+    private GameObject currentSelectedObject;
+
     private boolean isInitiated;
 
     private double cameraDragStartY;
@@ -228,5 +230,10 @@ public class GameModel
         cameraY.set(cameraY.get() + (oldZoom - newZoom) * (-cameraY.get() + centerHeight) / oldZoom);
 
         cameraZoom.set(newZoom);
+    }
+
+    public void setSelectedObject(GameObject gameObject)
+    {
+        currentSelectedObject = gameObject;
     }
 }

@@ -1,5 +1,6 @@
 package game.objects;
 
+import game.mvp.GamePresenter;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -20,7 +21,7 @@ public class BackgroundImage extends GameObject
     }
 
     @Override
-    public void init(Model m, GameModel gm, String param)
+    public void init(GamePresenter p, Model m, GameModel gm, String param)
     {
 
     }

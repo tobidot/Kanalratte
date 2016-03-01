@@ -1,7 +1,11 @@
 package game.objects;
 
 import game.mvp.GamePresenter;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
@@ -16,13 +20,13 @@ import model.Model;
  * @author Tobi
  *
  */
-public class WallSimple extends GameObject
+public class Border extends GameObject
 {
     public static final int WALLSIZE = 20;
 
     private Rectangle visual;
 
-    public WallSimple(int x, int y)
+    public Border(int x, int y)
     {
         super.visual = this.visual = new Rectangle();
         visual.setWidth(WALLSIZE);
@@ -39,7 +43,9 @@ public class WallSimple extends GameObject
     public void init(GamePresenter p, Model m, GameModel gm, String param)
     {
         super.init(p, m, gm, param);
-        visual.setFill(new ImagePattern(m.getImage("MAP_MAUER_A")));
+        ImagePattern pattern = new ImagePattern(m.getImage("MAP_WEG_" + (char) ('A' + (int) (Math.random() * 3))));
+        visual.setFill(pattern);
+        profileImage.set(pattern);
     }
 
     @Override
@@ -47,4 +53,5 @@ public class WallSimple extends GameObject
     {
         super.calculatePhysics(n);
     }
+
 }
