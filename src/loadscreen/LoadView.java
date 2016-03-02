@@ -1,5 +1,7 @@
 package loadscreen;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -47,6 +49,9 @@ public class LoadView extends View<Pane, LoadingScreenPresenter>
         loadUpdateBar.prefWidthProperty().bind(loadImage.widthProperty());
     }
 
+    /**
+     * 
+     */
     public void show()
     {
         loadWindow = new Stage();
@@ -75,10 +80,17 @@ public class LoadView extends View<Pane, LoadingScreenPresenter>
         }
     }
 
-    public void setProgress(double percent, String out)
+    /**
+     * 
+     * @param text
+     * @param percent
+     */
+    public void bindProgress(ReadOnlyObjectProperty<String> text, ReadOnlyDoubleProperty percent)
     {
-        loadUpdate.setText(out + " : (" + String.format("%.1f", percent * 100) + "%) ");
-        loadUpdateBar.setProgress(percent);
+        text.addListener((src, o, n) -> {
+            loadUpdate.setText(text + " : (" + String.format("%.1f", percent.get() * 100) + "%) ");
+        });
+        loadUpdateBar.progressProperty().bind(percent);
     }
 
     @Override

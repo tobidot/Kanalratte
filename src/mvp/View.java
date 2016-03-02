@@ -26,6 +26,10 @@ public abstract class View<T extends Pane, R extends Presenter>
         resolutionWidth = new SimpleDoubleProperty();
     }
 
+    /**
+     * 
+     * @return gibt daas root-element dieser View zurück
+     */
     public T getUI()
     {
         return root;

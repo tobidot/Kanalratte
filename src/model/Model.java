@@ -3,10 +3,9 @@ package model;
 import asset.AssetManager;
 import game.gui.ButtonAnimation;
 import game.mvp.GamePresenter;
-import game.objects.GameObject;
-import game.objects.GameObjectTest;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
@@ -17,7 +16,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
-import mvp.MainPresenter;
 
 public class Model
 {
@@ -98,6 +96,21 @@ public class Model
     public GameModel getGame()
     {
         return gameModel;
+    }
+
+    public ReadOnlyDoubleProperty getLoadingPercent()
+    {
+        return assets.getPercent();
+    }
+
+    public void loadResources()
+    {
+        assets.loadAssets();
+    }
+
+    public ReadOnlyObjectProperty<String> getLoadingText()
+    {
+        return assets.getInfo();
     }
 
 }

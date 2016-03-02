@@ -40,14 +40,12 @@ public class GamePresenter extends Presenter<GameView>
     @Override
     public void show()
     {
-        mainPresenter.activateInGameWindow();
         model.gameStart(this);
     }
 
     @Override
     public void hide()
     {
-        mainPresenter.deactivateInGameWindow();
 
     }
 

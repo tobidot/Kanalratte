@@ -22,10 +22,21 @@ public abstract class Presenter<T extends View>
         this.mainPresenter = mainPresenter;
     }
 
+    /**
+     * wird aufgerufen wenn dieser Presenter gezeigt werden soll
+     */
     public abstract void show();
 
+    /**
+     * wird aufgerufen wenn dieser Presenter aktiv war und nun ein anderer
+     * augerfuen wird
+     */
     public abstract void hide();
 
+    /**
+     * 
+     * @return die View die von diesem Presenter verwaltert wird
+     */
     public View getView()
     {
         return view;
