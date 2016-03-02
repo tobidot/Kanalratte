@@ -43,7 +43,7 @@ public class Border extends GameObject
     public void init(GamePresenter p, Model m, GameModel gm, String param)
     {
         super.init(p, m, gm, param);
-        ImagePattern pattern = new ImagePattern(m.getImage("MAP_WEG_" + (char) ('A' + (int) (Math.random() * 3))));
+        ImagePattern pattern = m.getAssets().getImagePattern("MAP_WEG_" + (char) ('A' + (int) (Math.random() * 3)));
         visual.setFill(pattern);
         profileImage.set(pattern);
     }

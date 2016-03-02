@@ -24,6 +24,12 @@ public class MainView extends View<VBox, MainPresenter>
         embededPane = null;
     }
 
+    /**
+     * setzt die Pane die gezeigt werden soll
+     * 
+     * @param ui
+     *            neue rootpane
+     */
     public void embed(Pane ui)
     {
         if (embededPane != null)
@@ -37,7 +43,6 @@ public class MainView extends View<VBox, MainPresenter>
     @Override
     protected void setImages(Model model)
     {
-        // TODO Auto-generated method stub
 
     }
 

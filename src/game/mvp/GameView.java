@@ -2,6 +2,7 @@ package game.mvp;
 
 import java.util.ArrayList;
 
+import asset.types.ImageResource;
 import game.gui.ButtonWrapper;
 import game.gui.UsableButton;
 import game.objects.GameObject;
@@ -324,16 +325,18 @@ public class GameView extends View<HBox, GamePresenter>
 
     protected void setImages(Model model)
     {
+        System.out.println("hier");
         gameMenu.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(0), new Insets(0))));
-        moreLeft.setBackground(model.getAsBackground("MENUE_MORE_LEFT"));
-        moreRight.setBackground(model.getAsBackground("MENUE_MORE_RIGHT"));
-        exitButton.setBackground(model.getAsBackground("MENUE_EXIT"));
-        menuInfo.setBackground(model.getAsBackground("MENUE_INFO_NONE"));
+        moreLeft.setBackground(model.getAssets().getBackgroundImage("MENUE_MORE_LEFT"));
+        moreRight.setBackground(model.getAssets().getBackgroundImage("MENUE_MORE_RIGHT"));
+        exitButton.setBackground(model.getAssets().getBackgroundImage("MENUE_EXIT"));
+        menuInfo.setBackground(model.getAssets().getBackgroundImage("MENUE_INFO_NONE"));
+        System.out.println("nicht");
 
         gameScreen.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(0), new Insets(0))));
         statusInfo.setBackground(new Background(new BackgroundFill(Color.GRAY, new CornerRadii(0), new Insets(0))));
 
-        selectInfoProfile.setBackground(model.getAsBackground("MENUE_INFO_NONE"));
+        selectInfoProfile.setBackground(model.getAssets().getBackgroundImage("MENUE_INFO_NONE"));
         selectInfoLife.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), new Insets(0))));
         selectInfoMana.setBackground(new Background(new BackgroundFill(Color.BLUE, new CornerRadii(0), new Insets(0))));
 

@@ -29,7 +29,7 @@ public class BackgroundImage extends GameObject
     public BackgroundImage(Model model, String bgImage)
     {
         super.visual = this.visual = new Rectangle();
-        visual.setFill(new ImagePattern(model.getImage(bgImage)));
+        visual.setFill(model.getAssets().getImagePattern(bgImage));
     }
 
 }

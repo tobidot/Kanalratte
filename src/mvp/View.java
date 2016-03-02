@@ -11,9 +11,6 @@ public abstract class View<T extends Pane, R extends Presenter>
 {
     protected T root;
 
-    @SuppressWarnings("unused")
-    private Stage stage;
-
     private SimpleDoubleProperty resolutionHeight;
 
     private SimpleDoubleProperty resolutionWidth;
@@ -35,11 +32,19 @@ public abstract class View<T extends Pane, R extends Presenter>
         return root;
     }
 
+    /**
+     * 
+     * @return the width of this Window
+     */
     protected ReadOnlyDoubleProperty getResolutionWidth()
     {
         return resolutionWidth;
     }
 
+    /**
+     * 
+     * @return height of this Window
+     */
     protected ReadOnlyDoubleProperty getResolutionHeight()
     {
         return resolutionHeight;
@@ -53,7 +58,6 @@ public abstract class View<T extends Pane, R extends Presenter>
      */
     public void setStage(Stage stage)
     {
-        this.stage = stage;
         resolutionHeight.bind(stage.heightProperty());
         resolutionWidth.bind(stage.widthProperty());
         stage.sceneProperty().addListener((src, o, n) -> {
@@ -70,11 +74,24 @@ public abstract class View<T extends Pane, R extends Presenter>
         });
     }
 
+    /**
+     * setzt den Presenter, der diese View verwaltet
+     * 
+     * @param p
+     *            Presenter der zu dieser View gehört
+     */
     public void setPresenter(R p)
     {
         this.presenter = p;
     }
 
+    /**
+     * wird aufgerufen, um Bilder nachzuladen, die zur erstellungszeit dieser
+     * View noch nicht vorhanden sind
+     * 
+     * @param model
+     *            model das die Bilder enthält
+     */
     protected abstract void setImages(Model model);
 
 }

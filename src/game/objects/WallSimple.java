@@ -39,7 +39,7 @@ public class WallSimple extends GameObject
     public void init(GamePresenter p, Model m, GameModel gm, String param)
     {
         super.init(p, m, gm, param);
-        visual.setFill(new ImagePattern(m.getImage("MAP_MAUER_A")));
+        visual.setFill(m.getAssets().getImagePattern("MAP_MAUER_A"));
     }
 
     @Override

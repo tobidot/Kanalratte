@@ -12,10 +12,10 @@ public class MenuEinstellungenPresenter extends MenuBasePresenter
     {
         super(mainPresenter, model);
         ImagePattern[] menue = new ImagePattern[4];
-        menue[0] = new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true);
-        menue[1] = new ImagePattern(model.getImage("MENUE_OPTIONS_BACK"), 0, 0, 1, 1, true);
-        menue[2] = new ImagePattern(model.getImage("MENUE_RIGHT"), 0, 0, 1, 1, true);
-        menue[3] = new ImagePattern(model.getImage("MENUE_RIGHT"), 0, 0, 1, 1, true);
+        menue[0] = model.getAssets().getImagePattern("MENUE_LEFT");
+        menue[1] = model.getAssets().getImagePattern("MENUE_OPTIONS_BACK");
+        menue[2] = model.getAssets().getImagePattern("MENUE_RIGHT");
+        menue[3] = model.getAssets().getImagePattern("MENUE_RIGHT");
         view.setImageSet(menue);
         view.setMenueOptions("Audio", "Grafik", "zurück");
     }

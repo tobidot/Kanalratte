@@ -1,5 +1,6 @@
 package model;
 
+import asset.ReadOnlyAssetManager;
 import asset.AssetManager;
 import game.gui.ButtonAnimation;
 import game.mvp.GamePresenter;
@@ -29,26 +30,6 @@ public class Model
     {
         assets = new AssetManager();
         gameModel = new GameModel(this);
-    }
-
-    public String getResourcePath(String key)
-    {
-        return assets.getResourcePath(key);
-    }
-
-    public Object getResource(String key)
-    {
-        return assets.getResourceData(key);
-    }
-
-    public Image getImage(String key)
-    {
-        return assets.getImage(key);
-    }
-
-    public Background getAsBackground(String key)
-    {
-        return new Background(new BackgroundFill(new ImagePattern(getImage(key), 0, 0, 1, 1, true), new CornerRadii(0), new Insets(0)));
     }
 
     public void bindStageResolution(Stage stage)
@@ -93,24 +74,49 @@ public class Model
 
     }
 
+    /**
+     * 
+     * @return Zugriff auf Ingame Mechaniken
+     */
     public GameModel getGame()
     {
         return gameModel;
     }
 
-    public ReadOnlyDoubleProperty getLoadingPercent()
-    {
-        return assets.getPercent();
-    }
-
+    /**
+     * diese Funktion sorgt dafür das Resourcen jetzt geladen werden
+     */
     public void loadResources()
     {
         assets.loadAssets();
     }
 
+    /**
+     * 
+     * @return Ladezeitfortschritt
+     */
+    public ReadOnlyDoubleProperty getLoadingPercent()
+    {
+        return assets.getPercent();
+    }
+
+    /**
+     * 
+     * @return Text der als LadeInfo erscheint
+     */
     public ReadOnlyObjectProperty<String> getLoadingText()
     {
         return assets.getInfo();
+    }
+
+    /**
+     * gibt lesenden Zugriff auf den AssetManger
+     * 
+     * @return AssetManager mit Resourcen
+     */
+    public ReadOnlyAssetManager getAssets()
+    {
+        return assets;
     }
 
 }

@@ -42,6 +42,12 @@ public abstract class Presenter<T extends View>
         return view;
     }
 
+    /**
+     * ändert die Stage auf die diese View gezeigt wird
+     * 
+     * @param primaryStage
+     *            neue Stage
+     */
     protected void setStage(Stage primaryStage)
     {
         view.setStage(primaryStage);

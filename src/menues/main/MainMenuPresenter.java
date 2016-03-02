@@ -12,9 +12,9 @@ public class MainMenuPresenter extends MenuBasePresenter
     {
         super(mainP, model);
         ImagePattern[] menue = new ImagePattern[3];
-        menue[0] = new ImagePattern(model.getImage("MENUE_LEFT"), 0, 0, 1, 1, true);
-        menue[1] = new ImagePattern(model.getImage("MENUE_OPTIONS_BACK"), 0, 0, 1, 1, true);
-        menue[2] = new ImagePattern(model.getImage("MENUE_RIGHT"), 0, 0, 1, 1, true);
+        menue[0] = model.getAssets().getImagePattern("MENUE_LEFT");
+        menue[1] = model.getAssets().getImagePattern("MENUE_OPTIONS_BACK");
+        menue[2] = model.getAssets().getImagePattern("MENUE_RIGHT");
         view.setImageSet(menue);
         view.setMenueOptions("Spielen", "Einstellungen", "Exit");
     }
@@ -31,6 +31,9 @@ public class MainMenuPresenter extends MenuBasePresenter
 
     }
 
+    /**
+     * wird ausgeführt, wenn ein Menübutton gedrückt wurde
+     */
     public void onOptionPressed(int index)
     {
         switch (index)

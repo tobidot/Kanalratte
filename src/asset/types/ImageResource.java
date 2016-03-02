@@ -54,7 +54,7 @@ public class ImageResource extends ResourceType
     {
         if (imgPattern == null)
         {
-            imgPattern = new ImagePattern((Image) resource, 0, 0, 1, 1, true);
+            imgPattern = new ImagePattern(getImage(), 0, 0, 1, 1, true);
         }
         return imgPattern;
     }
@@ -69,8 +69,9 @@ public class ImageResource extends ResourceType
     {
         if (imgBack == null)
         {
-            imgBack = new Background(new BackgroundFill(imgPattern, new CornerRadii(0), new Insets(0)));
+            imgBack = new Background(new BackgroundFill(getAsImagePattern(), new CornerRadii(0), new Insets(0)));
         }
         return imgBack;
+
     }
 }

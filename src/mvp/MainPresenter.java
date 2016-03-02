@@ -30,7 +30,9 @@ public class MainPresenter extends Presenter<MainView>
         currentPresenter = null;
         primaryStage = stage;
 
+        System.out.println("nach");
         new LoadingScreenPresenter(mainPresenter, model);
+        System.out.println("vor");
     }
 
     /**
