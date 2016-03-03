@@ -1,22 +1,11 @@
 package model;
 
-import asset.ReadOnlyAssetManager;
 import asset.AssetManager;
-import game.gui.ButtonAnimation;
+import asset.ReadOnlyAssetManager;
 import game.mvp.GamePresenter;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.event.Event;
-import javafx.event.EventType;
-import javafx.geometry.Insets;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.ImagePattern;
-import javafx.stage.Stage;
 
 public class Model
 {
@@ -32,16 +21,12 @@ public class Model
         gameModel = new GameModel(this);
     }
 
-    public void bindStageResolution(Stage stage)
-    {
-        stage.setWidth(0);
-    }
-
-    public ButtonAnimation getButtonAnimation(String key)
-    {
-        return assets.getButtonAnimation(key);
-    }
-
+    /**
+     * startet das spiel a.k.a. öffnet das IngameFenster und lädt die Ma neu
+     * 
+     * @param presenter
+     *            Presenter der das Spiel verwaltet
+     */
     public void gameStart(GamePresenter presenter)
     {
         gameModel.loadMap(selectedMap);
@@ -61,17 +46,6 @@ public class Model
 
         };
         mainLoop.start();
-    }
-
-    public void onGameWorldUserEvent(Event event)
-    {
-        EventType<? extends Event> type = event.getEventType();
-
-        if (type.getName().equals("MouseEvent") && event instanceof MouseEvent)
-        {
-            MouseEvent me = (MouseEvent) event;
-        }
-
     }
 
     /**

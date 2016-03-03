@@ -3,6 +3,12 @@ package model;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
+/**
+ * Datenspeicherklasse um auf Bildschirmgröße zuzugrefien
+ * 
+ * @author Tobi
+ *
+ */
 public class ScreenProperty
 {
     private SimpleDoubleProperty resolutionWidth;

@@ -93,6 +93,10 @@ public class GameView extends View<HBox, GamePresenter>
 
     }
 
+    /**
+     * initialisiert das Layout zur Rechten des Bildes mit der Menüstruktur
+     * 
+     */
     private void gameMenuLayout()
     {
         gameMenu.hgapProperty().bind(getResolutionWidth().multiply(0.01));
@@ -177,6 +181,9 @@ public class GameView extends View<HBox, GamePresenter>
         b.setMaxHeight(Integer.MAX_VALUE);
     }
 
+    /**
+     * definiert das Layout für die Linke Seite des Bildes
+     */
     private void inGameScreenLayout()
     {
         gameScreen.prefHeightProperty().bind(getResolutionHeight().multiply(0.75));
@@ -223,6 +230,9 @@ public class GameView extends View<HBox, GamePresenter>
         }
     }
 
+    /**
+     * definiert das Layout von der Spielwelt selbst
+     */
     private void gameWorldLayout()
     {
         Rectangle rect = new Rectangle(0, 0);
@@ -234,33 +244,22 @@ public class GameView extends View<HBox, GamePresenter>
             public Event dispatchEvent(Event event, EventDispatchChain tail)
             {
                 boolean notHandledYet = true;
-                // capturing phase, can handle / modify / substitute / divert
-                // the event
                 presenter.onGameWorldUserEvent(event);
-
                 if (notHandledYet)
                 {
                     // forward the event to the rest of the chain
                     event = tail.dispatchEvent(event);
-
-                    if (event != null)
-                    {
-                        // bubbling phase, can handle / modify / substitute /
-                        // divert
-                        // the event
-                    }
                 }
-
                 return notHandledYet ? event : null;
             }
         });
 
     }
-
-    private void abilityUse(UsableButton abilityButton2)
-    {
-        abilityButton2.use();
-    }
+    //
+    // private void abilityUse(UsableButton abilityButton2)
+    // {
+    // abilityButton2.use();
+    // }
 
     public void showAbbilties(ButtonWrapper... abilities)
     {

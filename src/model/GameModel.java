@@ -7,11 +7,7 @@ import game.map.BaseMap;
 import game.objects.GameObject;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
-import javafx.event.EventType;
-import javafx.scene.input.MouseEvent;
-import mvp.Presenter;
 
 /**
  * GameModel hält alle informationen über das wirkliche Spiel
@@ -55,6 +51,7 @@ public class GameModel
         loadedMap = null;
         currentAbilities = new ButtonWrapper[0];
         currentMenueOptions = new ButtonWrapper[0];
+        currentSelectedObject = null;
         allObjects = null;
         isInitiated = false;
         cameraX = new SimpleDoubleProperty(oldCameraX = 0);
@@ -63,7 +60,7 @@ public class GameModel
     }
 
     /**
-     * wird aufgerufen bei userevents wie
+     * wird aufgerufen bei Userevents wie
      * <ul>
      * <li>MouseEvent
      * <li>TastaturEvent
@@ -75,13 +72,13 @@ public class GameModel
      */
     public void onGameWorldUserEvent(Event event)
     {
-        EventType<? extends Event> type = event.getEventType();
-
-        if (event instanceof MouseEvent)
-        {
-            MouseEvent me = (MouseEvent) event;
-            GameObject obj = allObjects.get(0);
-        }
+        // EventType<? extends Event> type = event.getEventType();
+        //
+        // if (event instanceof MouseEvent)
+        // {
+        // MouseEvent me = (MouseEvent) event;
+        // GameObject obj = allObjects.get(0);
+        // }
 
     }
 
@@ -131,6 +128,15 @@ public class GameModel
             }
         });
 
+    }
+
+    /**
+     * 
+     * @return GameObject das selektiert ist
+     */
+    public GameObject getCurrentSelectedObject()
+    {
+        return currentSelectedObject;
     }
 
     /**
@@ -213,6 +219,11 @@ public class GameModel
         return cameraY;
     }
 
+    /**
+     * Je größer dieser Wert desto näher befindet man sich
+     * 
+     * @return ZoomFactor der Kamera
+     */
     public ReadOnlyDoubleProperty getCameraZoom()
     {
         return cameraZoom;

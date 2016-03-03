@@ -40,7 +40,7 @@ public class Kanal extends GameObject
     {
         super.init(p, m, gm, param);
         // visual.setFill(new ImagePattern(m.getImage("TEST")));
-        visual.fillProperty().bind(m.getButtonAnimation("ANIMATION_MAP_KANAL_A").currentImagePattern());
+        visual.fillProperty().bind(m.getAssets().getButtonAnimation("ANIMATION_MAP_KANAL_A").currentImagePattern());
     }
 
     @Override
