@@ -2,7 +2,6 @@ package game.mvp;
 
 import java.util.ArrayList;
 
-import asset.types.ImageResource;
 import game.gui.ButtonWrapper;
 import game.gui.UsableButton;
 import game.objects.GameObject;
@@ -11,10 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventDispatchChain;
 import javafx.event.EventDispatcher;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -64,8 +61,6 @@ public class GameView extends View<HBox, GamePresenter>
     private final int abilitiesCount = 12;
 
     private UsableButton[] abilityButton = new UsableButton[abilitiesCount];
-
-    private double scale;
 
     public GameView()
     {
@@ -255,12 +250,18 @@ public class GameView extends View<HBox, GamePresenter>
         });
 
     }
-    //
-    // private void abilityUse(UsableButton abilityButton2)
-    // {
-    // abilityButton2.use();
-    // }
 
+    private void abilityUse(UsableButton abilityButton2)
+    {
+        abilityButton2.use();
+    }
+
+    /**
+     * zeigt die Fähigkeiten in der Fähigkeiten lesite
+     * 
+     * @param abilities
+     *            Liste der aktuellen Fähigkeiten
+     */
     public void showAbbilties(ButtonWrapper... abilities)
     {
         for (int i = 0; i < abilitiesCount; i++)

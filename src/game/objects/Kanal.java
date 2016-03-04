@@ -1,8 +1,6 @@
 package game.objects;
 
 import game.mvp.GamePresenter;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
@@ -44,8 +42,10 @@ public class Kanal extends GameObject
     }
 
     @Override
-    public void calculatePhysics(long n)
+    protected void physicsDoing(long nanosecs)
     {
-        super.calculatePhysics(n);
+        // TODO Auto-generated method stub
+
     }
+
 }

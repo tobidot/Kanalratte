@@ -101,21 +101,25 @@ public abstract class GameObject
     /**
      * Verhalten dieses Objekts in einem gewissen Interval<br>
      * (Gravitation , Bewegungsbefehl ...)
-     * 
-     * Die supermethode muss aufgerufen werden
      */
-    public void calculatePhysics(long nanosecs)
+    public final void calculatePhysics(long nanosecs)
     {
         oldNanosecs = bufferedNanosecs;
         bufferedNanosecs = nanosecs;
+        physicsDoing(nanosecs);
     }
+
+    /**
+     * Berechnung für das Verhalten dieses Objekts in einem gewissen Interval
+     * <br>
+     * (Gravitation , Bewegungsbefehl ...)
+     */
+    protected abstract void physicsDoing(long nanosecs);
 
     public void showProfile(Pane pane)
     {
         Rectangle rect = new Rectangle();
 
-        System.out.println(":" + pane.getPrefWidth() + " , " + pane.getPrefHeight());
-        System.out.println("-" + pane.getWidth() + " , " + pane.getHeight());
         rect.widthProperty().bind(pane.prefWidthProperty());
         rect.heightProperty().bind(pane.prefHeightProperty());
         rect.fillProperty().bind(profileImage);

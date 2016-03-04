@@ -20,7 +20,7 @@ public class GameObjectTest extends GameObject
     }
 
     @Override
-    public void calculatePhysics(long n)
+    public void physicsDoing(long n)
     {
         super.calculatePhysics(n);
         visual.setLayoutX(visual.getLayoutX() + speed);

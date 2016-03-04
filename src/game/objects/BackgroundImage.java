@@ -2,7 +2,6 @@ package game.objects;
 
 import game.mvp.GamePresenter;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
@@ -30,6 +29,12 @@ public class BackgroundImage extends GameObject
     {
         super.visual = this.visual = new Rectangle();
         visual.setFill(model.getAssets().getImagePattern(bgImage));
+    }
+
+    @Override
+    protected void physicsDoing(long nanosecs)
+    {
+
     }
 
 }

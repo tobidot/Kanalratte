@@ -1,7 +1,6 @@
 package game.objects;
 
 import game.mvp.GamePresenter;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
@@ -43,8 +42,8 @@ public class WallSimple extends GameObject
     }
 
     @Override
-    public void calculatePhysics(long n)
+    protected void physicsDoing(long nanosecs)
     {
-        super.calculatePhysics(n);
+
     }
 }

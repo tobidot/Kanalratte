@@ -1,11 +1,7 @@
 package game.objects;
 
 import game.mvp.GamePresenter;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.GameModel;
 import model.Model;
@@ -49,9 +45,9 @@ public class Border extends GameObject
     }
 
     @Override
-    public void calculatePhysics(long n)
+    protected void physicsDoing(long nanosecs)
     {
-        super.calculatePhysics(n);
+
     }
 
 }
